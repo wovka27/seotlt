@@ -1,6 +1,5 @@
 import { makeObservable } from 'mobx'
 import BaseStore from '@/stores/base.store'
-import { generateUUID } from '@/helpers/generateUUID'
 
 export interface INewsItem {
   uuid: string
