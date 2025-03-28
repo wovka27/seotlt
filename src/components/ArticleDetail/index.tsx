@@ -30,7 +30,9 @@ export const ArticleDetail: React.FC = observer(() => {
     if (res) setData(res)
   }, [uuid])
 
-  return data ? (
+  if (!data) return null
+
+  return (
     <article className="article-detail">
       <div className="article-detail__header">
         <UiButton variant="secondary" size="small" className="article-detail__back" onClick={onBack}>
@@ -60,5 +62,5 @@ export const ArticleDetail: React.FC = observer(() => {
         <p className="article-detail__excerpt">{data.excerpt}</p>
       </div>
     </article>
-  ) : null
+  )
 })
