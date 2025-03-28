@@ -4,6 +4,7 @@ import NewsListItem from '@/components/NewsList/NewsListItem'
 import { observer } from 'mobx-react-lite'
 
 import '@/components/NewsList/news-list.scss'
+import CreateNew from '@/components/CreateNew'
 
 const NewsList: React.FC = observer(() => {
   return (
@@ -11,6 +12,7 @@ const NewsList: React.FC = observer(() => {
       {newsStore.items.map((item) => (
         <NewsListItem key={item.uuid} {...item} />
       ))}
+      <CreateNew />
     </div>
   )
 })
