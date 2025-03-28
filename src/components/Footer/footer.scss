@@ -1,0 +1,15 @@
+.footer {
+  background-color: #111827;
+  color: white;
+  margin-top: auto;
+
+  &-container {
+    margin: 0 auto;
+    padding: 32px 16px;
+  }
+
+  &-bottom {
+    text-align: center;
+    color: #9ca3af;
+  }
+}

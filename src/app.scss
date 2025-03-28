@@ -1,0 +1,14 @@
+@import "style.css";
+
+.app {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  padding-top: 59px;
+}
+
+main {
+  flex-grow: 1;
+  width: 100%;
+  padding: 16px;
+}

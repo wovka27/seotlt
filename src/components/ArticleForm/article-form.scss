@@ -1,0 +1,46 @@
+.article-form {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+
+  &__preview {
+    width: 100%;
+    aspect-ratio: 16/9;
+    background: #f3f4f6;
+    border-radius: 8px;
+    overflow: hidden;
+  }
+
+  &__image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  &__fields {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  &__row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+  }
+
+  &__actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 12px;
+    margin-top: 8px;
+  }
+}
+
+@media (max-width: 640px) {
+  .article-form {
+    &__row {
+      grid-template-columns: 1fr;
+    }
+  }
+}
