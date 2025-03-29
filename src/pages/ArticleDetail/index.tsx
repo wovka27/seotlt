@@ -1,6 +1,7 @@
-import React, { useEffect, useMemo, useState } from 'react'
+import React from 'react'
 import { observer } from 'mobx-react-lite'
 import { useNavigate, useParams } from 'react-router'
+import { Navigate } from 'react-router-dom'
 
 import Icon from '@/components/Icon'
 import UiButton from '@/components/UI/UiButton'
@@ -10,40 +11,14 @@ import UiImage from '@/components/UI/UiImage'
 import newsStore, { INewsItem } from '@/stores/news.store'
 
 import '@/pages/ArticleDetail/article-detail.scss'
-import { Navigate } from 'react-router-dom'
-
-const isValidUUID = (uuid: string) => {
-  return /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(uuid)
-}
+import DeleteNew from '@/components/DeleteNew'
 
 const ArticleDetail: React.FC = observer(() => {
   const { uuid } = useParams<{ uuid: string }>()
   const navigate = useNavigate()
-  const [data, setData] = useState<INewsItem | null>(null)
-
-  const formattedDate = useMemo(
-    () =>
-      data
-        ? new Date(data.date).toLocaleDateString('ru-RU', {
-            day: 'numeric',
-            month: 'long',
-            year: 'numeric'
-          })
-        : '',
-    [data]
-  )
+  const [data] = React.useState<INewsItem | undefined>(newsStore.readItem(uuid!))
 
   const onBack = () => navigate(-1)
-
-  const remove = () => {
-    newsStore.deleteItem(uuid!)
-    onBack()
-  }
-
-  useEffect(() => {
-    const res = newsStore.readItem(uuid!)
-    if (res) setData(res)
-  }, [uuid])
 
   if (!uuid || !isValidUUID(uuid)) return <Navigate to="/404" replace />
 
@@ -56,9 +31,7 @@ const ArticleDetail: React.FC = observer(() => {
           <UiButton variant="secondary" size="small" className="article-detail__back" onClick={onBack}>
             <Icon name="arrowLeft" size={18} />
           </UiButton>
-          <UiButton variant="secondary" size="small" onClick={remove}>
-            <Icon name="x" size={18} />
-          </UiButton>
+          <DeleteNew uuid={uuid} iconSize={18} callback={onBack} />
           <UpdateNew item={data} size="small" />
         </div>
 
@@ -69,7 +42,7 @@ const ArticleDetail: React.FC = observer(() => {
           </div>
           <div className="article-detail__meta-item">
             <Icon name="calendar" size={24} />
-            <span>{formattedDate}</span>
+            <span>{data.date}</span>
           </div>
         </div>
       </div>
@@ -86,5 +59,9 @@ const ArticleDetail: React.FC = observer(() => {
     </article>
   )
 })
+
+const isValidUUID = (uuid: string) => {
+  return /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(uuid)
+}
 
 export default ArticleDetail

@@ -1,27 +1,22 @@
 import React from 'react'
-import { observer } from 'mobx-react-lite'
 
 import Icon from '@/components/Icon'
-import UiButton from '@/components/UI/UiButton'
 import UpdateNew from '@/components/UpdateNew'
 import UiImage from '@/components/UI/UiImage'
 
-import newsStore, { INewsItem } from '@/stores/news.store'
+import { INewsItem } from '@/stores/news.store'
 
 import '@/pages/NewsList/NewsListItem/news-list-item.scss'
 import { Link } from 'react-router-dom'
+import DeleteNew from '@/components/DeleteNew'
 
 type NewsListItemProps = INewsItem
 
-const NewsListItem: React.FC<NewsListItemProps> = observer((props) => {
-  const convertedDate = props.date.replace(/(\d+)-(\d+)-(\d+)/g, '$3-$2-$1')
-
+const NewsListItem: React.FC<NewsListItemProps> = (props) => {
   return (
     <article className="newsItem">
       <div className="newsItem__remove">
-        <UiButton size="small" variant="secondary" onClick={() => newsStore.deleteItem(props.uuid)}>
-          <Icon name="x" size={15} />
-        </UiButton>
+        <DeleteNew uuid={props.uuid} />
       </div>
       <div className="newsItem__image">
         <UiImage src={props.imageUrl} alt={props.title} />
@@ -30,9 +25,9 @@ const NewsListItem: React.FC<NewsListItemProps> = observer((props) => {
         <div className="newsItem-content__meta">
           <span className="newsItem-content__meta__date">
             <Icon name="calendar" size={16} />
-            {convertedDate}
+            {props.date}
           </span>
-          <span className="categoy">
+          <span className="newsItem-content__meta__date">
             <Icon name="tag" size={16} />
             {props.category}
           </span>
@@ -47,6 +42,6 @@ const NewsListItem: React.FC<NewsListItemProps> = observer((props) => {
       </div>
     </article>
   )
-})
+}
 
 export default NewsListItem

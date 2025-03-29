@@ -21,7 +21,26 @@ interface IconProps extends React.SVGProps<SVGSVGElement> {
   className?: string
 }
 
-const icons: Record<IconName, JSX.Element> = {
+const Icon: React.FC<IconProps> = ({ name, size = 24, className = '', ...rest }) => {
+  return (
+    <svg
+      width={size}
+      height={size}
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.5"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      className={className}
+      {...rest}
+    >
+      {iconMap[name]}
+    </svg>
+  )
+}
+
+const iconMap: Record<IconName, JSX.Element> = {
   not_found: (
     <g>
       <circle cx="12" cy="12" r="10" />
@@ -74,25 +93,6 @@ const icons: Record<IconName, JSX.Element> = {
   ),
   youtube: (
     <path d="M22.54 6.42a2.78 2.78 0 00-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.46a2.78 2.78 0 00-1.94 2A29 29 0 001 11.75a29 29 0 00.46 5.33A2.78 2.78 0 003.4 19c1.72.46 8.6.46 8.6.46s6.88 0 8.6-.46a2.78 2.78 0 001.94-2 29 29 0 00.46-5.25 29 29 0 00-.46-5.33z" />
-  )
-}
-
-const Icon: React.FC<IconProps> = ({ name, size = 24, className = '', ...rest }) => {
-  return (
-    <svg
-      width={size}
-      height={size}
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="1.5"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      className={className}
-      {...rest}
-    >
-      {icons[name]}
-    </svg>
   )
 }
 

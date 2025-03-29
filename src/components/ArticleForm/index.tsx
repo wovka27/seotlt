@@ -1,11 +1,16 @@
 import React, { useState } from 'react'
-import '@/components/ArticleForm/article-form.scss'
+
 import UiInput from '@/components/UI/UiInput'
 import UiTextArea from '@/components/UI/UiTextArea'
 import UiButton from '@/components/UI/UiButton'
-import { INewsItem } from '@/stores/news.store'
-import { generateUUID } from '@/helpers/generateUUID'
 import UiImage from '@/components/UI/UiImage'
+
+import { INewsItem } from '@/stores/news.store'
+
+import { generateUUID } from '@/helpers/generateUUID'
+import { getLocationDate } from '@/helpers/getLocationDate'
+
+import '@/components/ArticleForm/article-form.scss'
 
 interface ArticleFormProps {
   initialData?: INewsItem
@@ -13,33 +18,16 @@ interface ArticleFormProps {
   onCancel?: () => void
 }
 
-const ArticleForm: React.FC<ArticleFormProps> = ({ initialData, onSubmit, onCancel }) => {
-  const [formData, setFormData] = useState<INewsItem>(
-    initialData ?? {
-      uuid: generateUUID(),
-      title: '',
-      excerpt: '',
-      imageUrl: '',
-      date: '',
-      category: ''
-    }
-  )
+const ArticleForm: React.FC<ArticleFormProps> = ({ initialData = getInitialData(), onSubmit, onCancel }) => {
+  const [formData, setFormData] = useState<INewsItem>(initialData)
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
-    onSubmit(formData)
-    setFormData({
-      uuid: generateUUID(),
-      title: '',
-      excerpt: '',
-      imageUrl: '',
-      date: new Date().toISOString().split('T')[0],
-      category: ''
-    })
+    onSubmit({ ...formData, date: getLocationDate(new Date(formData.date)) })
+    setFormData(getInitialData())
   }
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    const { name, value } = e.target
+  const handleChange = ({ target: { value, name } }: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     setFormData((prev) => ({ ...prev, [name]: value }))
   }
 
@@ -100,5 +88,14 @@ const ArticleForm: React.FC<ArticleFormProps> = ({ initialData, onSubmit, onCanc
     </form>
   )
 }
+
+const getInitialData = () => ({
+  uuid: generateUUID(),
+  title: '',
+  excerpt: '',
+  imageUrl: '',
+  date: '',
+  category: ''
+})
 
 export default ArticleForm
