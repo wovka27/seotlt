@@ -38,7 +38,7 @@ const NewsListItem: React.FC<NewsListItemProps> = observer((props) => {
             {props.category}
           </span>
         </div>
-        <h2 onClick={() => navigate(`/detail/${props.uuid}`)} className="newsItem-content__title">
+        <h2 onClick={() => navigate(`/${props.uuid}`)} className="newsItem-content__title">
           {props.title}
         </h2>
         <p className="newsItem-content-excerpt">{props.excerpt}</p>
