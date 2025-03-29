@@ -54,12 +54,12 @@ export const ArticleDetail: React.FC = observer(() => {
 
         <div className="article-detail__meta">
           <div className="article-detail__meta-item">
-            <Icon name="calendar" size={24} />
-            <span>{formattedDate}</span>
-          </div>
-          <div className="article-detail__meta-item">
             <Icon name="tag" size={18} />
             <span>{data.category}</span>
+          </div>
+          <div className="article-detail__meta-item">
+            <Icon name="calendar" size={24} />
+            <span>{formattedDate}</span>
           </div>
         </div>
       </div>
