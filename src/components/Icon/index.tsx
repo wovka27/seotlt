@@ -11,14 +11,44 @@ type IconName =
   | 'instagram'
   | 'youtube'
   | 'arrowLeft'
+  | 'image_loading'
+  | 'image_error'
+  | 'not_found'
 
-interface IconProps {
+interface IconProps extends React.SVGProps<SVGSVGElement> {
   name: IconName
-  size?: number
+  size?: number | string
   className?: string
 }
 
 const icons: Record<IconName, JSX.Element> = {
+  not_found: (
+    <g>
+      <circle cx="12" cy="12" r="10" />
+      <path d="M16 16s-1.5-2-4-2-4 2-4 2" />
+      <line x1="9" y1="9" x2="9.01" y2="9" />
+      <line x1="15" y1="9" x2="15.01" y2="9" />
+    </g>
+  ),
+  image_error: (
+    <g>
+      <circle cx="12" cy="12" r="10" />
+      <line x1="15" y1="9" x2="9" y2="15" />
+      <line x1="9" y1="9" x2="15" y2="15" />
+    </g>
+  ),
+  image_loading: (
+    <g>
+      <line x1="12" y1="2" x2="12" y2="6" />
+      <line x1="12" y1="18" x2="12" y2="22" />
+      <line x1="4.93" y1="4.93" x2="7.76" y2="7.76" />
+      <line x1="16.24" y1="16.24" x2="19.07" y2="19.07" />
+      <line x1="2" y1="12" x2="6" y2="12" />
+      <line x1="18" y1="12" x2="22" y2="12" />
+      <line x1="4.93" y1="19.07" x2="7.76" y2="16.24" />
+      <line x1="16.24" y1="7.76" x2="19.07" y2="4.93" />
+    </g>
+  ),
   arrowLeft: (
     <g>
       <line x1="19" y1="12" x2="5" y2="12" />
@@ -47,7 +77,7 @@ const icons: Record<IconName, JSX.Element> = {
   )
 }
 
-const Icon: React.FC<IconProps> = ({ name, size = 24, className = '' }) => {
+const Icon: React.FC<IconProps> = ({ name, size = 24, className = '', ...rest }) => {
   return (
     <svg
       width={size}
@@ -55,10 +85,11 @@ const Icon: React.FC<IconProps> = ({ name, size = 24, className = '' }) => {
       viewBox="0 0 24 24"
       fill="none"
       stroke="currentColor"
-      strokeWidth="2"
+      strokeWidth="1.5"
       strokeLinecap="round"
       strokeLinejoin="round"
       className={className}
+      {...rest}
     >
       {icons[name]}
     </svg>
