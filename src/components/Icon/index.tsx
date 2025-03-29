@@ -1,6 +1,16 @@
-import React from 'react'
+import React, { JSX } from 'react'
 
-type IconName = 'calendar' | 'tag' | 'newspaper' | 'menu' | 'x' | 'facebook' | 'twitter' | 'instagram' | 'youtube' | 'arrowLeft'
+type IconName =
+  | 'calendar'
+  | 'tag'
+  | 'newspaper'
+  | 'menu'
+  | 'x'
+  | 'facebook'
+  | 'twitter'
+  | 'instagram'
+  | 'youtube'
+  | 'arrowLeft'
 
 interface IconProps {
   name: IconName
@@ -8,7 +18,7 @@ interface IconProps {
   className?: string
 }
 
-const icons = {
+const icons: Record<IconName, JSX.Element> = {
   arrowLeft: (
     <g>
       <line x1="19" y1="12" x2="5" y2="12" />
