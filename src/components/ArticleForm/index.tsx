@@ -8,7 +8,6 @@ import UiImage from '@/components/UI/UiImage'
 import { INewsItem } from '@/stores/news.store'
 
 import { generateUUID } from '@/helpers/generateUUID'
-import { getLocationDate } from '@/helpers/getLocationDate'
 
 import '@/components/ArticleForm/article-form.scss'
 
