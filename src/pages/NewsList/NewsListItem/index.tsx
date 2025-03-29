@@ -2,6 +2,7 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 
 import Icon from '@/components/Icon'
+import IconInfo from '@/components/Icon/IconInfo'
 import UpdateNew from '@/components/UpdateNew'
 import UiImage from '@/components/UI/UiImage'
 import DeleteNew from '@/components/DeleteNew'
@@ -9,7 +10,6 @@ import DeleteNew from '@/components/DeleteNew'
 import { INewsItem } from '@/stores/news.store'
 
 import '@/pages/NewsList/NewsListItem/news-list-item.scss'
-import DateInPublication from '@/components/DateInPublication'
 
 type NewsListItemProps = INewsItem
 
@@ -24,11 +24,8 @@ const NewsListItem: React.FC<NewsListItemProps> = (props) => {
       </div>
       <div className="newsItem-content">
         <div className="newsItem-content__meta">
-          <DateInPublication date={props.date} />
-          <span className="newsItem-content__meta__date">
-            <Icon name="tag" size={16} />
-            {props.category}
-          </span>
+          <IconInfo iconName="calendar" date={props.date} />
+          <IconInfo iconName="tag" date={props.category} />
         </div>
         <Link to={`/${props.uuid}`}>
           <h2 className="newsItem-content__title">{props.title}</h2>

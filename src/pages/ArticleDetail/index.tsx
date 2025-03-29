@@ -4,6 +4,7 @@ import { useNavigate, useParams } from 'react-router'
 import { Navigate } from 'react-router-dom'
 
 import Icon from '@/components/Icon'
+import IconInfo from '@/components/Icon/IconInfo'
 import UpdateNew from '@/components/UpdateNew'
 import DeleteNew from '@/components/DeleteNew'
 import UiButton from '@/components/UI/UiButton'
@@ -12,7 +13,6 @@ import UiImage from '@/components/UI/UiImage'
 import newsStore, { INewsItem } from '@/stores/news.store'
 
 import '@/pages/ArticleDetail/article-detail.scss'
-import DateInPublication from '@/components/DateInPublication'
 
 const ArticleDetail: React.FC = observer(() => {
   const { uuid } = useParams<{ uuid: string }>()
@@ -37,11 +37,8 @@ const ArticleDetail: React.FC = observer(() => {
         </div>
 
         <div className="article-detail__meta">
-          <div className="article-detail__meta-item">
-            <Icon name="tag" size={18} />
-            <span>{data.category}</span>
-          </div>
-          <DateInPublication date={data.date} size={24} />
+          <IconInfo iconName="tag" date={data.category} size={24} />
+          <IconInfo iconName="calendar" date={data.date} size={24} />
         </div>
       </div>
 

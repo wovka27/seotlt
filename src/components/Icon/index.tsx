@@ -1,6 +1,6 @@
 import React, { JSX } from 'react'
 
-type IconName =
+export type IconNameType =
   | 'calendar'
   | 'tag'
   | 'newspaper'
@@ -16,7 +16,7 @@ type IconName =
   | 'not_found'
 
 interface IconProps extends React.SVGProps<SVGSVGElement> {
-  name: IconName
+  name: IconNameType
   size?: number | string
   className?: string
 }
@@ -40,7 +40,7 @@ const Icon: React.FC<IconProps> = ({ name, size = 24, className = '', ...rest })
   )
 }
 
-const iconMap: Record<IconName, JSX.Element> = {
+const iconMap: Record<IconNameType, JSX.Element> = {
   not_found: (
     <g>
       <circle cx="12" cy="12" r="10" />
