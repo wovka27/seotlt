@@ -4,11 +4,13 @@
   display: flex;
   flex-direction: column;
   min-height: 100vh;
-  padding-top: 59px;
+  padding-top: 60px;
 }
 
 main {
   flex-grow: 1;
   width: 100%;
-  padding: 16px;
+  margin: 0 auto;
+  max-width: 1200px;
+  padding: 32px 16px;
 }
