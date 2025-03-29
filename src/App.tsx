@@ -1,22 +1,25 @@
 import React from 'react'
+import { Routes, Route } from 'react-router-dom'
+
+import DefaultLayout from '@/layouts/DefaultLayout'
+
+import NewsList from '@/pages/NewsList'
+import ArticleDetail from '@/pages/ArticleDetail'
+import NotFound from '@/pages/NotFound'
 
 import '@/app.scss'
-import { Routes, Route, HashRouter } from 'react-router-dom'
-import DefaultLayout from '@/layouts/DefaultLayout'
-import routes from '@/router'
 
 const App: React.FC = () => {
   return (
     <div className="app">
-      <HashRouter>
-        <DefaultLayout>
-          <Routes>
-            {routes.map((route) => (
-              <Route key={route.path} path={route.path} Component={route.element} />
-            ))}
-          </Routes>
-        </DefaultLayout>
-      </HashRouter>
+      <DefaultLayout>
+        <Routes>
+          <Route path="/" element={<NewsList />} />
+          <Route path="/:uuid" element={<ArticleDetail />} />
+          <Route path="/404" element={<NotFound />} />
+          <Route path="/*" element={<NotFound />} />
+        </Routes>
+      </DefaultLayout>
     </div>
   )
 }

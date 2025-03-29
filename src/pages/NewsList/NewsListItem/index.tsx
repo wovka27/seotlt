@@ -3,18 +3,17 @@ import { observer } from 'mobx-react-lite'
 
 import Icon from '@/components/Icon'
 import UiButton from '@/components/UI/UiButton'
+import UpdateNew from '@/components/UpdateNew'
+import UiImage from '@/components/UI/UiImage'
 
 import newsStore, { INewsItem } from '@/stores/news.store'
 
-import '@/components/NewsList/NewsListItem/news-list-item.scss'
-import UpdateNew from '@/components/UpdateNew'
-import { useNavigate } from 'react-router'
-import UiImage from '@/components/UI/UiImage'
+import '@/pages/NewsList/NewsListItem/news-list-item.scss'
+import { Link } from 'react-router-dom'
 
 type NewsListItemProps = INewsItem
 
 const NewsListItem: React.FC<NewsListItemProps> = observer((props) => {
-  const navigate = useNavigate()
   const convertedDate = props.date.replace(/(\d+)-(\d+)-(\d+)/g, '$3-$2-$1')
 
   return (
@@ -38,9 +37,9 @@ const NewsListItem: React.FC<NewsListItemProps> = observer((props) => {
             {props.category}
           </span>
         </div>
-        <h2 onClick={() => navigate(`/${props.uuid}`)} className="newsItem-content__title">
-          {props.title}
-        </h2>
+        <Link to={`/${props.uuid}`}>
+          <h2 className="newsItem-content__title">{props.title}</h2>
+        </Link>
         <p className="newsItem-content-excerpt">{props.excerpt}</p>
       </div>
       <div className="newsItem__update">

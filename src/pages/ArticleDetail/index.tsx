@@ -1,14 +1,22 @@
 import React, { useEffect, useMemo, useState } from 'react'
-import '@/components/ArticleDetail/article-detail.scss'
-import Icon from '@/components/Icon'
-import UiButton from '@/components/UI/UiButton'
 import { observer } from 'mobx-react-lite'
 import { useNavigate, useParams } from 'react-router'
-import newsStore, { INewsItem } from '@/stores/news.store'
+
+import Icon from '@/components/Icon'
+import UiButton from '@/components/UI/UiButton'
 import UpdateNew from '@/components/UpdateNew'
 import UiImage from '@/components/UI/UiImage'
 
-export const ArticleDetail: React.FC = observer(() => {
+import newsStore, { INewsItem } from '@/stores/news.store'
+
+import '@/pages/ArticleDetail/article-detail.scss'
+import { Navigate } from 'react-router-dom'
+
+const isValidUUID = (uuid: string) => {
+  return /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(uuid)
+}
+
+const ArticleDetail: React.FC = observer(() => {
   const { uuid } = useParams<{ uuid: string }>()
   const navigate = useNavigate()
   const [data, setData] = useState<INewsItem | null>(null)
@@ -36,6 +44,8 @@ export const ArticleDetail: React.FC = observer(() => {
     const res = newsStore.readItem(uuid!)
     if (res) setData(res)
   }, [uuid])
+
+  if (!uuid || !isValidUUID(uuid)) return <Navigate to="/404" replace />
 
   if (!data) return null
 
@@ -76,3 +86,5 @@ export const ArticleDetail: React.FC = observer(() => {
     </article>
   )
 })
+
+export default ArticleDetail
