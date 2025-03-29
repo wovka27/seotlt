@@ -12,6 +12,7 @@ import UiImage from '@/components/UI/UiImage'
 import newsStore, { INewsItem } from '@/stores/news.store'
 
 import '@/pages/ArticleDetail/article-detail.scss'
+import DateInPublication from '@/components/DateInPublication'
 
 const ArticleDetail: React.FC = observer(() => {
   const { uuid } = useParams<{ uuid: string }>()
@@ -40,10 +41,7 @@ const ArticleDetail: React.FC = observer(() => {
             <Icon name="tag" size={18} />
             <span>{data.category}</span>
           </div>
-          <div className="article-detail__meta-item">
-            <Icon name="calendar" size={24} />
-            <span>{data.date}</span>
-          </div>
+          <DateInPublication date={data.date} size={24} />
         </div>
       </div>
 

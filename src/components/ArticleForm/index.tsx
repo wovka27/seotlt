@@ -23,7 +23,7 @@ const ArticleForm: React.FC<ArticleFormProps> = ({ initialData = getInitialData(
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
-    onSubmit({ ...formData, date: getLocationDate(new Date(formData.date)) })
+    onSubmit(formData)
     setFormData(getInitialData())
   }
 

@@ -7,6 +7,7 @@ interface UiImageProps extends React.ImgHTMLAttributes<HTMLImageElement> {
 }
 
 const UiImage: React.FC<UiImageProps> = ({ src, alt = '', className = '', fallbackSize = 48, style, ...props }) => {
+  const [imgSrc] = useState(src)
   const [isLoading, setIsLoading] = useState(true)
   const [hasError, setHasError] = useState(false)
 
@@ -24,9 +25,11 @@ const UiImage: React.FC<UiImageProps> = ({ src, alt = '', className = '', fallba
     <div className={`ui-image ${className}`} style={style}>
       {!hasError && (
         <img
-          src={src}
+          key={imgSrc}
+          src={imgSrc}
           alt={alt}
           className={`ui-image__img ${isLoading ? 'ui-image__img--loading' : ''}`}
+          onChange={e => console.log(e)}
           onLoad={handleLoad}
           onError={handleError}
           {...props}
