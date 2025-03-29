@@ -32,17 +32,6 @@
     color: #6b7280;
   }
 
-  &__meta-item {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    font-size: 14px;
-
-    svg {
-      color: #9ca3af;
-    }
-  }
-
   &__image-container {
     position: relative;
     height: 30em;
