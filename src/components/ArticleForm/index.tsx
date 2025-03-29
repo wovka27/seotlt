@@ -5,6 +5,7 @@ import UiTextArea from '@/components/UI/UiTextArea'
 import UiButton from '@/components/UI/UiButton'
 import { INewsItem } from '@/stores/news.store'
 import { generateUUID } from '@/helpers/generateUUID'
+import UiImage from '@/components/UI/UiImage'
 
 interface ArticleFormProps {
   initialData?: INewsItem
@@ -45,7 +46,7 @@ const ArticleForm: React.FC<ArticleFormProps> = ({ initialData, onSubmit, onCanc
   return (
     <form onSubmit={handleSubmit} className="article-form">
       <div className="article-form__preview">
-        {formData.imageUrl && <img src={formData.imageUrl} alt="Preview" className="article-form__image" />}
+        {formData.imageUrl && <UiImage src={formData.imageUrl} alt="Preview" className="article-form__image" />}
       </div>
 
       <div className="article-form__fields">

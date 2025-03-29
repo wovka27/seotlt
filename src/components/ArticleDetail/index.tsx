@@ -5,6 +5,8 @@ import UiButton from '@/components/UI/UiButton'
 import { observer } from 'mobx-react-lite'
 import { useNavigate, useParams } from 'react-router'
 import newsStore, { INewsItem } from '@/stores/news.store'
+import UpdateNew from '@/components/UpdateNew'
+import UiImage from '@/components/UI/UiImage'
 
 export const ArticleDetail: React.FC = observer(() => {
   const { uuid } = useParams<{ uuid: string }>()
@@ -25,6 +27,11 @@ export const ArticleDetail: React.FC = observer(() => {
 
   const onBack = () => navigate(-1)
 
+  const remove = () => {
+    newsStore.deleteItem(uuid!)
+    onBack()
+  }
+
   useEffect(() => {
     const res = newsStore.readItem(uuid!)
     if (res) setData(res)
@@ -35,10 +42,16 @@ export const ArticleDetail: React.FC = observer(() => {
   return (
     <article className="article-detail">
       <div className="article-detail__header">
-        <UiButton variant="secondary" size="small" className="article-detail__back" onClick={onBack}>
-          <Icon name="arrowLeft" size={24} />
-          <span>Назад</span>
-        </UiButton>
+        <div className="article-detail__btns">
+          <UiButton variant="secondary" size="small" className="article-detail__back" onClick={onBack}>
+            <Icon name="arrowLeft" size={18} />
+            <span>Назад</span>
+          </UiButton>
+          <UiButton variant="secondary" size="small" onClick={remove}>
+            <Icon name="x" size={18} />
+          </UiButton>
+          <UpdateNew item={data} size="small" />
+        </div>
 
         <div className="article-detail__meta">
           <div className="article-detail__meta-item">
@@ -53,7 +66,7 @@ export const ArticleDetail: React.FC = observer(() => {
       </div>
 
       <div className="article-detail__image-container">
-        <img src={data.imageUrl} alt={data.title} className="article-detail__image" />
+        <UiImage src={data.imageUrl} alt={data.title} className="article-detail__image" />
       </div>
 
       <div className="article-detail__content">

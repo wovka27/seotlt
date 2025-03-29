@@ -8,9 +8,10 @@ import modalStore from '@/stores/modal.store'
 
 interface IUpdateNewsProps {
   item: INewsItem
+  size?: 'small' | 'medium' | 'large'
 }
 
-const UpdateNew: FC<IUpdateNewsProps> = observer(({ item }) => {
+const UpdateNew: FC<IUpdateNewsProps> = observer(({ item, size = 'small' }) => {
   const apply = (data: INewsItem) => {
     newsStore.updateItem(item.uuid, data)
     modalStore.close()
@@ -25,7 +26,7 @@ const UpdateNew: FC<IUpdateNewsProps> = observer(({ item }) => {
 
   return (
     <>
-      <UiButton onClick={open} size="small">
+      <UiButton onClick={open} size={size} variant="secondary">
         Редактировать
       </UiButton>
     </>

@@ -9,6 +9,7 @@ import newsStore, { INewsItem } from '@/stores/news.store'
 import '@/components/NewsList/NewsListItem/news-list-item.scss'
 import UpdateNew from '@/components/UpdateNew'
 import { useNavigate } from 'react-router'
+import UiImage from '@/components/UI/UiImage'
 
 type NewsListItemProps = INewsItem
 
@@ -18,14 +19,13 @@ const NewsListItem: React.FC<NewsListItemProps> = observer((props) => {
 
   return (
     <article className="newsItem">
-      <div className="newsItem__actions">
-        <UpdateNew item={props} />
-        <UiButton size="small" onClick={() => newsStore.deleteItem(props.uuid)}>
-          Удалить
+      <div className="newsItem__remove">
+        <UiButton size="small" variant="secondary" onClick={() => newsStore.deleteItem(props.uuid)}>
+          <Icon name="x" size={15} />
         </UiButton>
       </div>
       <div className="newsItem__image">
-        <img loading="lazy" src={props.imageUrl} alt={props.title} />
+        <UiImage src={props.imageUrl} alt={props.title} />
       </div>
       <div className="newsItem-content">
         <div className="newsItem-content__meta">
@@ -42,6 +42,9 @@ const NewsListItem: React.FC<NewsListItemProps> = observer((props) => {
           {props.title}
         </h2>
         <p className="newsItem-content-excerpt">{props.excerpt}</p>
+      </div>
+      <div className="newsItem__update">
+        <UpdateNew item={props} />
       </div>
     </article>
   )

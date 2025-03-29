@@ -1,0 +1,55 @@
+.ui-image {
+  position: relative;
+  display: inline-block;
+  overflow: hidden;
+  height: 100%;
+  width: 100%;
+  background: #f3f4f6;
+
+  &__img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+
+    &--loading {
+      visibility: hidden;
+    }
+  }
+
+  &__loader,
+  &__error {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: #6b7280;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    svg {
+      width: 100%;
+      height: 100%;
+      max-width: 48px;
+      max-height: 48px;
+    }
+  }
+
+  &__loader {
+    animation: spin 1s linear infinite;
+  }
+
+  &__error {
+    background: #f3f4f6;
+  }
+}
+
+@keyframes spin {
+  from {
+    transform: translate(-50%, -50%) rotate(0deg);
+  }
+  to {
+    transform: translate(-50%, -50%) rotate(360deg);
+  }
+}
