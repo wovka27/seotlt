@@ -1,5 +1,5 @@
 import { makeObservable } from 'mobx'
-import BaseStore from '@/stores/base.store'
+import CrudStore from '@/stores/crud.store'
 
 export interface INewsItem {
   uuid: string
@@ -10,7 +10,7 @@ export interface INewsItem {
   category: string
 }
 
-class NewsStore extends BaseStore<INewsItem> {
+class NewsStore extends CrudStore<INewsItem> {
   constructor() {
     super('news')
     makeObservable(this, { ...this.observableAnnotations })

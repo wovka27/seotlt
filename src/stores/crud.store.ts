@@ -14,7 +14,7 @@ export interface ICRUDStore<T> {
   deleteItem(uuid: string): void
 }
 
-export default class BaseStore<T extends { uuid: string }> implements ICRUDStore<T> {
+export default class CrudStore<T extends { uuid: string }> implements ICRUDStore<T> {
   public items: T[] = []
 
   protected observableAnnotations = {
