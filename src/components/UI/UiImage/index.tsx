@@ -27,7 +27,6 @@ const UiImage: React.FC<UiImageProps> = ({ src, alt = '', className = '', fallba
           src={src}
           alt={alt}
           className={`ui-image__img ${isLoading ? 'ui-image__img--loading' : ''}`}
-          onChange={(e) => console.log(e)}
           onLoad={handleLoad}
           onError={handleError}
           {...props}
