@@ -101,4 +101,4 @@ const ArticleForm: React.FC<ArticleFormProps> = ({ initialData, onSubmit, onCanc
   )
 }
 
-export default React.memo(ArticleForm)
+export default ArticleForm
