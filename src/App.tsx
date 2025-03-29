@@ -17,6 +17,8 @@ const App: React.FC = () => {
           <Route path="/" element={<NewsList />} />
           <Route path="/:uuid" element={<ArticleDetail />} />
           <Route path="/404" element={<NotFound />} />
+          <Route path="/*" element={<NotFound />} />
+
         </Routes>
       </DefaultLayout>
     </div>
