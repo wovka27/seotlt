@@ -1,7 +1,6 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 
-import Icon from '@/components/Icon'
 import IconInfo from '@/components/Icon/IconInfo'
 import UpdateNew from '@/components/UpdateNew'
 import UiImage from '@/components/UI/UiImage'
