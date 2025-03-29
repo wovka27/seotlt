@@ -45,7 +45,6 @@ export const ArticleDetail: React.FC = observer(() => {
         <div className="article-detail__btns">
           <UiButton variant="secondary" size="small" className="article-detail__back" onClick={onBack}>
             <Icon name="arrowLeft" size={18} />
-            <span>Назад</span>
           </UiButton>
           <UiButton variant="secondary" size="small" onClick={remove}>
             <Icon name="x" size={18} />
