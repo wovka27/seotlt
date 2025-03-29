@@ -12,20 +12,20 @@ import { useNavigate } from 'react-router'
 
 type NewsListItemProps = INewsItem
 
-const NewsListItem: React.FC<NewsListItemProps> = observer(({ title, excerpt, imageUrl, date, uuid, category }) => {
+const NewsListItem: React.FC<NewsListItemProps> = observer((props) => {
   const navigate = useNavigate()
-  const convertedDate = date.replace(/(\d+)-(\d+)-(\d+)/g, '$3-$2-$1')
+  const convertedDate = props.date.replace(/(\d+)-(\d+)-(\d+)/g, '$3-$2-$1')
 
   return (
     <article className="newsItem">
       <div className="newsItem__actions">
-        <UpdateNew item={{ title, excerpt, imageUrl, date, uuid, category }} />
-        <UiButton size="small" onClick={() => newsStore.deleteItem(uuid)}>
+        <UpdateNew item={props} />
+        <UiButton size="small" onClick={() => newsStore.deleteItem(props.uuid)}>
           Удалить
         </UiButton>
       </div>
       <div className="newsItem__image">
-        <img loading="lazy" src={imageUrl} alt={title} />
+        <img loading="lazy" src={props.imageUrl} alt={props.title} />
       </div>
       <div className="newsItem-content">
         <div className="newsItem-content__meta">
@@ -35,11 +35,13 @@ const NewsListItem: React.FC<NewsListItemProps> = observer(({ title, excerpt, im
           </span>
           <span className="categoy">
             <Icon name="tag" size={16} />
-            {category}
+            {props.category}
           </span>
         </div>
-        <h2 onClick={() => navigate(`/detail/${uuid}`)} className="newsItem-content__title">{title}</h2>
-        <p className="newsItem-content-excerpt">{excerpt}</p>
+        <h2 onClick={() => navigate(`/detail/${props.uuid}`)} className="newsItem-content__title">
+          {props.title}
+        </h2>
+        <p className="newsItem-content-excerpt">{props.excerpt}</p>
       </div>
     </article>
   )
