@@ -23,8 +23,8 @@ const NewsListItem: React.FC<NewsListItemProps> = (props) => {
       </div>
       <div className="newsItem-content">
         <div className="newsItem-content__meta">
-          <IconInfo iconName="calendar" date={props.date} />
-          <IconInfo iconName="tag" date={props.category} />
+          <IconInfo iconName="calendar" value={props.date} />
+          <IconInfo iconName="tag" value={props.category} />
         </div>
         <Link to={`/${props.uuid}`}>
           <h2 className="newsItem-content__title">{props.title}</h2>

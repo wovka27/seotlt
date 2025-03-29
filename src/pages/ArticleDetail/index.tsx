@@ -37,8 +37,8 @@ const ArticleDetail: React.FC = observer(() => {
         </div>
 
         <div className="article-detail__meta">
-          <IconInfo iconName="tag" date={data.category} size={24} />
-          <IconInfo iconName="calendar" date={data.date} size={24} />
+          <IconInfo iconName="tag" value={data.category} size={24} />
+          <IconInfo iconName="calendar" value={data.date} size={24} />
         </div>
       </div>
 
