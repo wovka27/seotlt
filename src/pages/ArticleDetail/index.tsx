@@ -4,14 +4,14 @@ import { useNavigate, useParams } from 'react-router'
 import { Navigate } from 'react-router-dom'
 
 import Icon from '@/components/Icon'
-import UiButton from '@/components/UI/UiButton'
 import UpdateNew from '@/components/UpdateNew'
+import DeleteNew from '@/components/DeleteNew'
+import UiButton from '@/components/UI/UiButton'
 import UiImage from '@/components/UI/UiImage'
 
 import newsStore, { INewsItem } from '@/stores/news.store'
 
 import '@/pages/ArticleDetail/article-detail.scss'
-import DeleteNew from '@/components/DeleteNew'
 
 const ArticleDetail: React.FC = observer(() => {
   const { uuid } = useParams<{ uuid: string }>()

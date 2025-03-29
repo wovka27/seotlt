@@ -1,14 +1,14 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 
 import Icon from '@/components/Icon'
 import UpdateNew from '@/components/UpdateNew'
 import UiImage from '@/components/UI/UiImage'
+import DeleteNew from '@/components/DeleteNew'
 
 import { INewsItem } from '@/stores/news.store'
 
 import '@/pages/NewsList/NewsListItem/news-list-item.scss'
-import { Link } from 'react-router-dom'
-import DeleteNew from '@/components/DeleteNew'
 
 type NewsListItemProps = INewsItem
 
