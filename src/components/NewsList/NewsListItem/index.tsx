@@ -2,9 +2,9 @@ import React from 'react'
 import { useNavigate } from 'react-router-dom'
 
 import IconInfo from '@/components/Icon/IconInfo'
+import UiImage from '@/components/UI/UiImage'
 import UpdateNewHOC from '@/components/HOC/UpdateNewHOC'
 import DeleteNewHOC from '@/components/HOC/DeleteNewHOC'
-import UiImage from '@/components/UI/UiImage'
 
 import { INewsItem } from '@/stores/news.store'
 
