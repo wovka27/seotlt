@@ -26,7 +26,7 @@ const NewsListItem: React.FC<NewsListItemProps> = (props) => {
           <IconInfo iconName="calendar" value={props.date} />
           <IconInfo iconName="tag" value={props.category} />
         </div>
-        <Link to={`/${props.uuid}`}>
+        <Link style={{ textDecoration: 'none' }} to={`/${props.uuid}`}>
           <h2 className="newsItem-content__title">{props.title}</h2>
         </Link>
         <p className="newsItem-content-excerpt">{props.excerpt}</p>

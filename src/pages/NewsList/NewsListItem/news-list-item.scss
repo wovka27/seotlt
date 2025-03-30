@@ -68,8 +68,15 @@
       text-decoration: none;
       transition: color 0.2s ease;
 
-      &:hover {
-        color: #2563eb;
+      @media (hover: hover) {
+        &:hover {
+          color: #2563eb;
+        }
+      }
+      @media (hover: none) {
+        &:active {
+          color: #2563eb;
+        }
       }
     }
 
