@@ -10,9 +10,11 @@ interface ICreateNewProps {
 }
 
 const CreateNew: FC<ICreateNewProps> = observer(({ children }) => {
-  const apply = (data: INewsItem) => {
-    newsStore.createItem(data)
+  const apply = (state: INewsItem, payload: INewsItem) => {
+    newsStore.createItem(payload)
     modalStore.close()
+
+    return state
   }
 
   const open = () => {

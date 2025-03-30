@@ -1,77 +1,63 @@
-import React, { useState } from 'react'
+import React, { useActionState, useState } from 'react'
 
 import UiInput from '@/components/UI/UiInput'
 import UiTextArea from '@/components/UI/UiTextArea'
 import UiButton from '@/components/UI/UiButton'
-import UiImage from '@/components/UI/UiImage'
 
 import { INewsItem } from '@/stores/news.store'
 
 import '@/components/ArticleForm/article-form.scss'
+import ImgPreview from '@/components/ImgPreview'
 
 interface ArticleFormProps {
   initialData?: INewsItem
-  onSubmit: (data: INewsItem) => void
+  onSubmit: (state: INewsItem, payload: INewsItem) => INewsItem
   onCancel?: () => void
 }
 
 const ArticleForm: React.FC<ArticleFormProps> = ({ initialData = getInitialData(), onSubmit, onCancel }) => {
-  const [formData, setFormData] = useState<INewsItem>(initialData)
-
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault()
-    onSubmit(formData)
-    setFormData(getInitialData())
-  }
-
-  const handleChange = ({ target: { value, name } }: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    setFormData((prev) => ({ ...prev, [name]: value }))
-  }
+  const [data, action] = useActionState<INewsItem, FormData>(
+    (state, payload) => onSubmit(state, Object.fromEntries(payload) as Record<keyof INewsItem, string>),
+    initialData
+  )
+  const [srcImg, setSrcImg] = useState<string>(initialData.imageUrl)
 
   return (
-    <form onSubmit={handleSubmit} className="article-form">
-      <div className="article-form__preview">
-        {formData.imageUrl && (
-          <UiImage key={formData.imageUrl} src={formData.imageUrl} alt="Preview" className="article-form__image" />
-        )}
-      </div>
-
+    <form action={action} className="article-form">
+      <ImgPreview srcImg={srcImg} />
       <div className="article-form__fields">
         <UiInput
+          defaultValue={data.title}
           label="Заголовок"
           name="title"
-          value={formData.title}
-          onChange={handleChange}
           placeholder="Введите заголовок статьи"
           required
         />
 
         <UiTextArea
+          defaultValue={data.excerpt}
           label="Краткое описание"
           name="excerpt"
-          value={formData.excerpt}
-          onChange={handleChange}
           placeholder="Введите краткое описание статьи"
           required
         />
 
         <UiInput
+          defaultValue={data.imageUrl}
+          onChange={(event) => setSrcImg(event.target.value)}
           label="URL изображения"
           name="imageUrl"
-          value={formData.imageUrl}
-          onChange={handleChange}
           placeholder="Введите URL изображения"
           required
         />
 
         <div className="article-form__row">
-          <UiInput label="Дата" type="date" name="date" value={formData.date} onChange={handleChange} required />
+          <UiInput defaultValue={data.date} label="Дата" type="date" name="date" required />
 
           <UiInput
+            defaultValue={data.category}
             label="Категория"
             name="category"
-            value={formData.category}
-            onChange={handleChange}
             placeholder="Например: Technology"
             required
           />

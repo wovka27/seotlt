@@ -7,7 +7,7 @@
   flex-direction: column;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   overflow: hidden;
-  transition: transform 0.2s ease-in-out;
+  transition: all .2s ease-in-out;
 
   &__remove {
     position: absolute;
@@ -26,15 +26,20 @@
 
   @media (hover: hover) {
     &:hover {
-      transform: scale(1.02);
+      box-shadow: 0 6px 10px rgba(0, 0, 0, 0.1);
+      .newsItem__image {
+        img {
+          transform: scale(1.02);
+        }
+      }
     }
   }
 
   &__image {
     width: 100%;
     height: 300px;
-    transition: filter 0.2s ease-in-out;
     img {
+      transition: transform 0.2s ease-in-out;
       width: 100%;
       height: 100%;
       object-fit: cover;
@@ -67,6 +72,10 @@
       color: #111827;
       text-decoration: none;
       transition: color 0.2s ease;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
 
       @media (hover: hover) {
         &:hover {

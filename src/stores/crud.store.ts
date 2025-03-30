@@ -2,19 +2,7 @@ import { action, observable } from 'mobx'
 import { storage } from '@/services/storage'
 import { generateUUID } from '@/helpers/generateUUID'
 
-export interface ICRUDStore<T> {
-  items: T[]
-
-  createItem(item: Omit<T, 'uuid'>): void
-
-  readItem(uuid: string): T | undefined
-
-  updateItem(uuid: string, data: Partial<T>): void
-
-  deleteItem(uuid: string): void
-}
-
-export default class CrudStore<T extends { uuid: string }> implements ICRUDStore<T> {
+export default class CrudStore<T extends { uuid: string }> {
   public items: T[] = []
 
   protected observableAnnotations = {

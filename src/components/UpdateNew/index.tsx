@@ -13,9 +13,11 @@ interface IUpdateNewsProps {
 }
 
 const UpdateNew: FC<IUpdateNewsProps> = observer(({ item, size = 'small', children }) => {
-  const apply = (data: INewsItem) => {
-    newsStore.updateItem(item.uuid, data)
+  const apply = (state: INewsItem, payload: INewsItem) => {
+    newsStore.updateItem(item.uuid, payload)
     modalStore.close()
+
+    return state
   }
 
   const open = () => {
