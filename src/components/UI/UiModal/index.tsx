@@ -8,6 +8,9 @@ import modalStore from '@/stores/modal.store'
 import '@/components/UI/UiModal/ui-modal.scss'
 
 const UiModal: React.FC = observer(() => {
+  const stop: React.MouseEventHandler<HTMLDivElement> & React.TouchEventHandler<HTMLDivElement> = (e) =>
+    e.stopPropagation()
+
   useEffect(() => {
     if (modalStore.component) {
       document.body.style.overflow = 'hidden'
@@ -22,8 +25,8 @@ const UiModal: React.FC = observer(() => {
   if (!modalStore.component) return null
 
   return (
-    <div className="ui-modal-overlay" onClick={modalStore.close}>
-      <div className="ui-modal" onClick={(e) => e.stopPropagation()}>
+    <div className="ui-modal-overlay" onMouseDown={modalStore.close} onTouchStart={modalStore.close}>
+      <div className="ui-modal" onMouseDown={stop} onTouchStart={stop}>
         <div className="ui-modal__header">
           <h2 className="ui-modal-title">{modalStore.title}</h2>
           <button className="ui-modal-close" onClick={modalStore.close}>
