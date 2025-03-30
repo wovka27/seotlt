@@ -43,10 +43,7 @@ export default class CrudStore<T extends { uuid: string }> implements ICRUDStore
   }
 
   public createItem(item: T) {
-    const value = item
-    value.uuid = generateUUID()
-
-    this.items.push(value)
+    this.items.push({ ...item, uuid: generateUUID() })
     this.saveToStorage()
   }
 
