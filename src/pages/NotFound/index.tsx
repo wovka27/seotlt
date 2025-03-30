@@ -9,7 +9,7 @@ const NotFound: React.FC = () => {
     <div className="not-found">
       <div className="not-found__container">
         <div className="not-found__icon">
-          <Icon name="not_found" size="100%" />
+          <Icon name="sad_smile" size="100%" />
         </div>
         <h1 className="not-found__title">404</h1>
         <p className="not-found__text">Упс! Кажется, страница, которую вы ищете, потерялась в цифровом пространстве.</p>

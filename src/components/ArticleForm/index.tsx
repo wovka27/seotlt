@@ -7,8 +7,6 @@ import UiImage from '@/components/UI/UiImage'
 
 import { INewsItem } from '@/stores/news.store'
 
-import { generateUUID } from '@/helpers/generateUUID'
-
 import '@/components/ArticleForm/article-form.scss'
 
 interface ArticleFormProps {
@@ -89,7 +87,7 @@ const ArticleForm: React.FC<ArticleFormProps> = ({ initialData = getInitialData(
 }
 
 const getInitialData = () => ({
-  uuid: generateUUID(),
+  uuid: '',
   title: '',
   excerpt: '',
   imageUrl: '',

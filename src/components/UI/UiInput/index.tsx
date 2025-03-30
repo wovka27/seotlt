@@ -1,18 +1,22 @@
 import React, { InputHTMLAttributes } from 'react'
 import '@/components/UI/UiInput/ui-input.scss'
+import UiFieldWrapper from '@/components/UI/UiFieldWrapper'
 
 interface UiInputProps extends InputHTMLAttributes<HTMLInputElement> {
   label?: string
   error?: string
 }
 
-const UiInput: React.FC<UiInputProps> = ({ label, error, className = '', ...props }) => {
+const UiInput: React.FC<UiInputProps> = ({ label, error, className = '', name, id, ...props }) => {
   return (
-    <div className="ui-input-wrapper">
-      {label && <label className="ui-input-label">{label}</label>}
-      <input className={`ui-input ${error ? 'ui-input--error' : ''} ${className}`} {...props} />
-      {error && <span className="ui-input-error">{error}</span>}
-    </div>
+    <UiFieldWrapper label={label} error={error} labelFor={name ?? id}>
+      <input
+        id={name ?? id}
+        name={name}
+        className={`ui-input ${error ? 'ui-input--error' : ''} ${className}`}
+        {...props}
+      />
+    </UiFieldWrapper>
   )
 }
 

@@ -13,7 +13,8 @@ export type IconNameType =
   | 'arrowLeft'
   | 'image_loading'
   | 'image_error'
-  | 'not_found'
+  | 'sad_smile'
+  | 'smile'
 
 interface IconProps extends React.SVGProps<SVGSVGElement> {
   name: IconNameType
@@ -41,7 +42,15 @@ const Icon: React.FC<IconProps> = ({ name, size = 24, className = '', ...rest })
 }
 
 const iconMap: Record<IconNameType, JSX.Element> = {
-  not_found: (
+  smile: (
+    <g>
+      <circle cx="12" cy="12" r="10" />
+      <path d="M16 16s-1.5-2-4-2-4 2-4 2" transform="scale(1, -1) translate(0, -32)"></path>
+      <line x1="9" y1="9" x2="9.01" y2="9" />
+      <line x1="15" y1="9" x2="15.01" y2="9" />
+    </g>
+  ),
+  sad_smile: (
     <g>
       <circle cx="12" cy="12" r="10" />
       <path d="M16 16s-1.5-2-4-2-4 2-4 2" />

@@ -25,11 +25,9 @@ const UpdateNew: FC<IUpdateNewsProps> = observer(({ item, size = 'small' }) => {
   }
 
   return (
-    <>
-      <UiButton onClick={open} size={size} variant="secondary">
-        Редактировать
-      </UiButton>
-    </>
+    <UiButton onClick={open} size={size} variant="secondary">
+      Редактировать
+    </UiButton>
   )
 })
 

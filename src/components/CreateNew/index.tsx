@@ -5,7 +5,11 @@ import newsStore, { INewsItem } from '@/stores/news.store'
 import modalStore from '@/stores/modal.store'
 import ArticleForm from '@/components/ArticleForm'
 
-const CreateNew: FC = observer(() => {
+interface ICreateNewProps {
+  children?: (open: () => void) => React.ReactNode
+}
+
+const CreateNew: FC<ICreateNewProps> = observer(({ children }) => {
   const apply = (data: INewsItem) => {
     newsStore.createItem(data)
     modalStore.close()
@@ -16,13 +20,19 @@ const CreateNew: FC = observer(() => {
   }
 
   return (
-    <article
-      onClick={open}
-      className="newsItem"
-      style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', minHeight: 350 }}
-    >
-      <p style={{ fontSize: 80, color: 'gray' }}>+</p>
-    </article>
+    <>
+      {children ? (
+        children(open)
+      ) : (
+        <article
+          onClick={open}
+          className="newsItem"
+          style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', minHeight: 350 }}
+        >
+          <p style={{ fontSize: 80, color: 'gray' }}>+</p>
+        </article>
+      )}
+    </>
   )
 })
 

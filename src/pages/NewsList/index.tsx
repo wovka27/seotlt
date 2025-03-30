@@ -7,15 +7,18 @@ import CreateNew from '@/components/CreateNew'
 import newsStore from '@/stores/news.store'
 
 import '@/pages/NewsList/news-list.scss'
+import NewsEmptyList from '@/pages/NewsList/NewsEmptyList/index.'
 
 const NewsList: React.FC = observer(() => {
-  return (
+  return newsStore.items.length ? (
     <div className="newsList">
       {newsStore.items.map((item) => (
         <NewsListItem key={item.uuid} {...item} />
       ))}
       <CreateNew />
     </div>
+  ) : (
+    <NewsEmptyList />
   )
 })
 
