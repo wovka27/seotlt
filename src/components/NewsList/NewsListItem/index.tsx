@@ -2,13 +2,15 @@ import React from 'react'
 import { useNavigate } from 'react-router-dom'
 
 import IconInfo from '@/components/Icon/IconInfo'
-import UpdateNew from '@/components/UpdateNew'
+import UpdateNewHOC from '@/components/HOC/UpdateNewHOC'
+import DeleteNewHOC from '@/components/HOC/DeleteNewHOC'
 import UiImage from '@/components/UI/UiImage'
-import DeleteNew from '@/components/DeleteNew'
 
 import { INewsItem } from '@/stores/news.store'
 
 import '@/components/NewsList/NewsListItem/news-list-item.scss'
+import UiButton from '@/components/UI/UiButton'
+import Icon from '@/components/Icon'
 
 type NewsListItemProps = INewsItem
 
@@ -21,11 +23,17 @@ const NewsListItem: React.FC<NewsListItemProps> = (props) => {
   }
 
   return (
-    <UpdateNew item={props}>
+    <UpdateNewHOC item={props}>
       {(open) => (
         <article onClick={open} className="newsItem">
           <div className="newsItem__remove">
-            <DeleteNew uuid={props.uuid} />
+            <DeleteNewHOC uuid={props.uuid}>
+              {(click) => (
+                <UiButton onClick={click} variant="secondary" size="small">
+                  <Icon size={15} name="x" />
+                </UiButton>
+              )}
+            </DeleteNewHOC>
           </div>
           <div className="newsItem__image">
             <UiImage key={props.imageUrl} src={props.imageUrl} alt={props.title} />
@@ -42,7 +50,7 @@ const NewsListItem: React.FC<NewsListItemProps> = (props) => {
           </div>
         </article>
       )}
-    </UpdateNew>
+    </UpdateNewHOC>
   )
 }
 

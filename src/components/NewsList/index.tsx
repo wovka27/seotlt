@@ -3,7 +3,7 @@ import { observer } from 'mobx-react-lite'
 
 import NewsListItem from '@/components/NewsList/NewsListItem'
 import NewsEmptyList from '@/components/NewsList/NewsEmptyList'
-import CreateNew from '@/components/CreateNew'
+import CreateNewHOC from '@/components/HOC/CreateNewHOC'
 
 import newsStore from '@/stores/news.store'
 
@@ -15,7 +15,17 @@ const NewsList: React.FC = observer(() => {
       {newsStore.items.map((item) => (
         <NewsListItem key={item.uuid} {...item} />
       ))}
-      <CreateNew />
+      <CreateNewHOC>
+        {(open) => (
+          <article
+            onClick={open}
+            className="newsItem"
+            style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', minHeight: 350 }}
+          >
+            <p style={{ fontSize: 80, color: 'gray' }}>+</p>
+          </article>
+        )}
+      </CreateNewHOC>
     </div>
   ) : (
     <NewsEmptyList />
