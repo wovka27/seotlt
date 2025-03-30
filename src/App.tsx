@@ -3,9 +3,10 @@ import { Routes, Route } from 'react-router-dom'
 
 import DefaultLayout from '@/layouts/DefaultLayout'
 
-import NewsList from '@/pages/NewsList'
-import ArticleDetail from '@/pages/ArticleDetail'
-import NotFound from '@/pages/NotFound'
+import ArticleDetail from '@/components/ArticleDetail'
+
+import NotFoundPage from '@/pages/NotFoundPage'
+import ListPage from '@/pages/ListPage'
 
 import '@/app.scss'
 
@@ -14,10 +15,10 @@ const App: React.FC = () => {
     <div className="app">
       <DefaultLayout>
         <Routes>
-          <Route path="/" element={<NewsList />} />
+          <Route path="/" element={<ListPage />} />
           <Route path="/:uuid" element={<ArticleDetail />} />
-          <Route path="/404" element={<NotFound />} />
-          <Route path="/*" element={<NotFound />} />
+          <Route path="/404" element={<NotFoundPage />} />
+          <Route path="/*" element={<NotFoundPage />} />
         </Routes>
       </DefaultLayout>
     </div>

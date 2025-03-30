@@ -2,10 +2,10 @@ import React from 'react'
 import { observer } from 'mobx-react-lite'
 
 import Icon from '@/components/Icon'
+import CreateNew from '@/components/CreateNew'
 import UiButton from '@/components/UI/UiButton'
 
-import '@/pages/NewsList/NewsEmptyList/news-empty-list.scss'
-import CreateNew from '@/components/CreateNew'
+import '@/components/NewsList/NewsEmptyList/news-empty-list.scss'
 
 const NewsEmptyList: React.FC = observer(() => {
   return (

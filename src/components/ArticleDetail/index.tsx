@@ -12,7 +12,7 @@ import UiImage from '@/components/UI/UiImage'
 
 import newsStore, { INewsItem } from '@/stores/news.store'
 
-import '@/pages/ArticleDetail/article-detail.scss'
+import '@/components/ArticleDetail/article-detail.scss'
 
 const ArticleDetail: React.FC = observer(() => {
   const { uuid } = useParams<{ uuid: string }>()

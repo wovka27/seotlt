@@ -1,6 +1,6 @@
 import React from 'react'
 
-import '@/pages/NotFound/not-found.scss'
+import '@/pages/NotFoundPage/not-found.scss'
 import { Link } from 'react-router-dom'
 import Icon from '@/components/Icon'
 

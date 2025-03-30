@@ -1,13 +1,13 @@
 import React from 'react'
 import { observer } from 'mobx-react-lite'
 
-import NewsListItem from '@/pages/NewsList/NewsListItem'
+import NewsListItem from '@/components/NewsList/NewsListItem'
+import NewsEmptyList from '@/components/NewsList/NewsEmptyList'
 import CreateNew from '@/components/CreateNew'
 
 import newsStore from '@/stores/news.store'
 
-import '@/pages/NewsList/news-list.scss'
-import NewsEmptyList from '@/pages/NewsList/NewsEmptyList/index.'
+import '@/components/NewsList/news-list.scss'
 
 const NewsList: React.FC = observer(() => {
   return newsStore.items.length ? (

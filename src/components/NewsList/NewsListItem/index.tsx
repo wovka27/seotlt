@@ -1,4 +1,4 @@
-import React, { MouseEvent } from 'react'
+import React from 'react'
 import { useNavigate } from 'react-router-dom'
 
 import IconInfo from '@/components/Icon/IconInfo'
@@ -8,7 +8,7 @@ import DeleteNew from '@/components/DeleteNew'
 
 import { INewsItem } from '@/stores/news.store'
 
-import '@/pages/NewsList/NewsListItem/news-list-item.scss'
+import '@/components/NewsList/NewsListItem/news-list-item.scss'
 
 type NewsListItemProps = INewsItem
 
@@ -19,6 +19,7 @@ const NewsListItem: React.FC<NewsListItemProps> = (props) => {
     event.stopPropagation()
     navigate(`/${props.uuid}`)
   }
+
   return (
     <UpdateNew item={props}>
       {(open) => (
