@@ -19,7 +19,7 @@ const NewsListItem: React.FC<NewsListItemProps> = (props) => {
         <DeleteNew uuid={props.uuid} />
       </div>
       <div className="newsItem__image">
-        <UiImage src={props.imageUrl} alt={props.title} />
+        <UiImage key={props.imageUrl} src={props.imageUrl} alt={props.title} />
       </div>
       <div className="newsItem-content">
         <div className="newsItem-content__meta">

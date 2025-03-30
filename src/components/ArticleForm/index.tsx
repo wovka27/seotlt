@@ -31,7 +31,9 @@ const ArticleForm: React.FC<ArticleFormProps> = ({ initialData = getInitialData(
   return (
     <form onSubmit={handleSubmit} className="article-form">
       <div className="article-form__preview">
-        {formData.imageUrl && <UiImage src={formData.imageUrl} alt="Preview" className="article-form__image" />}
+        {formData.imageUrl && (
+          <UiImage key={formData.imageUrl} src={formData.imageUrl} alt="Preview" className="article-form__image" />
+        )}
       </div>
 
       <div className="article-form__fields">
