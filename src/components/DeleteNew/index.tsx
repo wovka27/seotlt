@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { MouseEvent } from 'react'
 
 import Icon from '@/components/Icon'
 import UiButton from '@/components/UI/UiButton'
@@ -17,7 +17,8 @@ interface IDeleteNewProps {
 
 const DeleteNew: React.FC<IDeleteNewProps> = observer(
   ({ uuid, size = 'small', variant = 'secondary', iconSize = 15, callback, text }) => {
-    const click = () => {
+    const click: React.MouseEventHandler<HTMLButtonElement> = (event) => {
+      event.stopPropagation()
       newsStore.deleteItem(uuid)
       callback?.()
     }
