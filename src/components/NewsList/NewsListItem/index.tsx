@@ -3,8 +3,8 @@ import { useNavigate } from 'react-router-dom'
 
 import IconInfo from '@/components/Icon/IconInfo'
 import UiImage from '@/components/UI/UiImage'
-import UpdateNewHOC from '@/components/HOC/UpdateNewHOC'
-import DeleteNewHOC from '@/components/HOC/DeleteNewHOC'
+import UpdateArticleHOC from '@/components/HOC/UpdateArticleHOC'
+import DeleteArticleHOC from '@/components/HOC/DeleteArticleHOC'
 
 import { INewsItem } from '@/stores/news.store'
 
@@ -23,17 +23,17 @@ const NewsListItem: React.FC<NewsListItemProps> = (props) => {
   }
 
   return (
-    <UpdateNewHOC item={props}>
+    <UpdateArticleHOC item={props}>
       {(open) => (
         <article onClick={open} className="newsItem">
           <div className="newsItem__remove">
-            <DeleteNewHOC uuid={props.uuid}>
+            <DeleteArticleHOC uuid={props.uuid}>
               {(click) => (
                 <UiButton onClick={click} variant="secondary" size="small">
                   <Icon size={15} name="x" />
                 </UiButton>
               )}
-            </DeleteNewHOC>
+            </DeleteArticleHOC>
           </div>
           <div className="newsItem__image">
             <UiImage key={props.imageUrl} src={props.imageUrl} alt={props.title} />
@@ -50,7 +50,7 @@ const NewsListItem: React.FC<NewsListItemProps> = (props) => {
           </div>
         </article>
       )}
-    </UpdateNewHOC>
+    </UpdateArticleHOC>
   )
 }
 

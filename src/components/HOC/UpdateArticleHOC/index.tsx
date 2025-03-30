@@ -5,12 +5,12 @@ import newsStore, { INewsItem } from '@/stores/news.store'
 import ArticleForm from '@/components/ArticleForm'
 import modalStore from '@/stores/modal.store'
 
-interface IUpdateNewsProps {
+interface IUpdateArticleProps {
   item: INewsItem
   children: (open: () => void) => React.ReactNode
 }
 
-const UpdateNew: FC<IUpdateNewsProps> = observer(({ item, children }) => {
+const UpdateArticle: FC<IUpdateArticleProps> = observer(({ item, children }) => {
   const apply = (state: INewsItem, payload: INewsItem) => {
     newsStore.updateItem(item.uuid, payload)
     modalStore.close()
@@ -28,4 +28,4 @@ const UpdateNew: FC<IUpdateNewsProps> = observer(({ item, children }) => {
   return children(open)
 })
 
-export default UpdateNew
+export default UpdateArticle

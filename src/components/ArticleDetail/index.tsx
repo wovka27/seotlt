@@ -5,8 +5,8 @@ import { Navigate } from 'react-router-dom'
 
 import Icon from '@/components/Icon'
 import IconInfo from '@/components/Icon/IconInfo'
-import UpdateNewHOC from '@/components/HOC/UpdateNewHOC'
-import DeleteNewHOC from '@/components/HOC/DeleteNewHOC'
+import UpdateArticleHOC from '@/components/HOC/UpdateArticleHOC'
+import DeleteArticleHOC from '@/components/HOC/DeleteArticleHOC'
 import UiButton from '@/components/UI/UiButton'
 import UiImage from '@/components/UI/UiImage'
 
@@ -32,20 +32,20 @@ const ArticleDetail: React.FC = observer(() => {
           <UiButton variant="secondary" size="small" className="article-detail__back" onClick={onBack}>
             <Icon name="arrowLeft" size={18} />
           </UiButton>
-          <DeleteNewHOC uuid={uuid} callback={onBack}>
+          <DeleteArticleHOC uuid={uuid} callback={onBack}>
             {(click) => (
               <UiButton onClick={click} variant="secondary" size="small">
                 <Icon size={18} name="x" />
               </UiButton>
             )}
-          </DeleteNewHOC>
-          <UpdateNewHOC item={data}>
+          </DeleteArticleHOC>
+          <UpdateArticleHOC item={data}>
             {(open) => (
               <UiButton onClick={open} size="small" variant="secondary">
                 Редактировать
               </UiButton>
             )}
-          </UpdateNewHOC>
+          </UpdateArticleHOC>
         </div>
 
         <div className="article-detail__meta">

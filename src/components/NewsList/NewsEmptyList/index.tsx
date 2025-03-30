@@ -2,7 +2,7 @@ import React from 'react'
 import { observer } from 'mobx-react-lite'
 
 import Icon from '@/components/Icon'
-import CreateNewHOC from '@/components/HOC/CreateNewHOC'
+import CreateArticleHOC from '@/components/HOC/CreateArticleHOC'
 import UiButton from '@/components/UI/UiButton'
 
 import '@/components/NewsList/NewsEmptyList/news-empty-list.scss'
@@ -15,7 +15,7 @@ const NewsEmptyList: React.FC = observer(() => {
           <Icon name="smile" size="100%" />
         </div>
         <p className="news-empty-list__text">Список новостей пуст</p>
-        <CreateNewHOC>{(open) => <UiButton onClick={open}>Создать</UiButton>}</CreateNewHOC>
+        <CreateArticleHOC>{(open) => <UiButton onClick={open}>Создать</UiButton>}</CreateArticleHOC>
       </div>
     </div>
   )
