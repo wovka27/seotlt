@@ -18,3 +18,11 @@ body {
     padding: 0;
     -webkit-tap-highlight-color: transparent;
 }
+
+img {
+    display: block;
+}
+
+a {
+    text-decoration: none;
+}
