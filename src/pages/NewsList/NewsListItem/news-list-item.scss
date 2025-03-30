@@ -24,8 +24,10 @@
     padding: 0 24px 20px 24px;
   }
 
-  &:hover {
-    transform: scale(1.02);
+  @media (hover: hover) {
+    &:hover {
+      transform: scale(1.02);
+    }
   }
 
   &__image {
