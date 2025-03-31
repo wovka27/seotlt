@@ -30,6 +30,7 @@ class CommentFormStore {
 
   resetFormData = () => {
     this.formData = getInitialState()
+    this.setActionType('create')
     return this.formData
   }
 }

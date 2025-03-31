@@ -6,9 +6,9 @@ import Icon from '@/components/Icon'
 import IconInfo from '@/components/Icon/IconInfo'
 
 import commentsStore, { ICommentsItem } from '@/stores/comments.store'
+import commentFormStore from '@/stores/commentForm.store'
 
 import '@/components/CommentsList/CommentsListItem/comments-list-item.scss'
-import commentFormStore from '@/stores/commentForm.store'
 
 interface ICommentsListItemProps {
   data: ICommentsItem

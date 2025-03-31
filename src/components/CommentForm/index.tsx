@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useRef } from 'react'
 import { observer } from 'mobx-react-lite'
 
 import UiButton from '@/components/UI/UiButton'
@@ -13,6 +13,7 @@ import CommentFormActionHOC from '@/components/HOC/CommentFormActionHOC'
 
 const CommentForm: React.FC = observer(() => {
   const { uuid } = useParams<{ uuid: string }>()
+  const formRef = useRef<HTMLFormElement | null>(null)
 
   const onChange: React.ChangeEventHandler<HTMLInputElement> & React.ChangeEventHandler<HTMLTextAreaElement> = ({
     target: { name, value }
@@ -25,7 +26,7 @@ const CommentForm: React.FC = observer(() => {
       <h3 className="comment-form__title">
         {commentFormStore.actionType === 'create' ? 'Добавить' : 'Редактировать'} комментарий
       </h3>
-      <form className="comment-form-form">
+      <form ref={formRef} className="comment-form-form">
         <UiInput
           onChange={onChange}
           required
