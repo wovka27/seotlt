@@ -22,21 +22,21 @@ import '@/components/ArticleDetail/article-detail.scss'
 const ArticleDetail: React.FC = observer(() => {
   const { uuid } = useParams<{ uuid: string }>()
   const navigate = useNavigate()
+
+  const { resetFormData, setActionType, actionType } = commentFormStore
   const articleData = newsStore.readItem(uuid!)
 
   const nodeRef = useRef<HTMLDivElement | null>(null)
 
   const onBack = () => {
-    commentFormStore.resetFormData()
-    commentFormStore.setActionType('create')
+    resetFormData()
+    setActionType('create')
     navigate(-1)
   }
 
   useEffect(() => {
-    if (commentFormStore.actionType === 'update') {
-      nodeRef.current?.scrollIntoView({ behavior: 'smooth', block: 'center' })
-    }
-  }, [commentFormStore.actionType])
+    if (actionType === 'update') nodeRef.current?.scrollIntoView({ behavior: 'smooth', block: 'center' })
+  }, [actionType])
 
   if (!uuid || !isValidUUID(uuid) || !articleData) return <Navigate to="/404" replace />
 

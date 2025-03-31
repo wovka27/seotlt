@@ -15,14 +15,19 @@ interface ICommentsListItemProps {
 }
 
 const CommentsListItem: React.FC<ICommentsListItemProps> = observer(({ data }) => {
-  const edit = () => {
-    commentFormStore.setActionType('update')
-    commentFormStore.setFormData(data)
+  const { setActionType, setFormData, resetFormData } = commentFormStore
+
+  const edit = async () => {
+    await Promise.all([
+      await queueMicrotask(() => setActionType('create')),
+      queueMicrotask(() => setActionType('update')),
+      queueMicrotask(() => setFormData(data))
+    ])
   }
 
   const remove = () => {
     commentsStore.deleteItem(data.uuid)
-    commentFormStore.resetFormData()
+    resetFormData()
   }
 
   return (
