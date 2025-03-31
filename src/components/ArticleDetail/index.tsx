@@ -36,7 +36,6 @@ const ArticleDetail: React.FC = observer(() => {
 
     setAction('create')
     setComment(getInitialState())
-    commentsStore.filterArticleByUuidList(uuid!)
   }
 
   const onEdit = (comment: ICommentsItem) => {
@@ -46,14 +45,11 @@ const ArticleDetail: React.FC = observer(() => {
   }
   const onRemove = (val: string) => {
     commentsStore.deleteItem(val)
-    commentsStore.filterArticleByUuidList(uuid!)
   }
 
   const onCancel = () => {
     setComment(getInitialState())
   }
-
-  commentsStore.filterArticleByUuidList(uuid!)
 
   if (!uuid || !isValidUUID(uuid)) return <Navigate to="/404" replace />
 

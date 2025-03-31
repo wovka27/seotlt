@@ -1,4 +1,4 @@
-import { action, makeObservable, observable } from 'mobx'
+import { action, computed, makeObservable, observable } from 'mobx'
 import CrudStore, { IBaseItem } from '@/stores/crud.store'
 
 export interface ICommentsItem extends IBaseItem {
@@ -9,15 +9,16 @@ export interface ICommentsItem extends IBaseItem {
 }
 
 class CommentsStore extends CrudStore<ICommentsItem> {
-  public filteredList: ICommentsItem[] = []
-
   constructor() {
     super('comments')
-    makeObservable(this, { ...this.observableAnnotations, filterArticleByUuidList: action, filteredList: observable })
+    makeObservable(this, {
+      ...this.observableAnnotations,
+      commentsList: computed
+    })
   }
 
-  filterArticleByUuidList(article_uuid: string) {
-    this.filteredList = this.items.filter((item) => item.article_uuid === article_uuid)
+  get commentsList() {
+    return Object.groupBy(this.items, (item) => item.article_uuid)
   }
 }
 
