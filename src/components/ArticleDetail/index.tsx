@@ -13,10 +13,11 @@ import UiButton from '@/components/UI/UiButton'
 import UiImage from '@/components/UI/UiImage'
 
 import newsStore from '@/stores/news.store'
+import commentFormStore from '@/stores/commentForm.store'
+
+import { isValidUUID } from '@/helpers/isValidUUID'
 
 import '@/components/ArticleDetail/article-detail.scss'
-
-import commentFormStore from '@/stores/commentForm.store'
 
 const ArticleDetail: React.FC = observer(() => {
   const { uuid } = useParams<{ uuid: string }>()
@@ -86,9 +87,5 @@ const ArticleDetail: React.FC = observer(() => {
     </div>
   )
 })
-
-const isValidUUID = (uuid: string) => {
-  return /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(uuid)
-}
 
 export default ArticleDetail

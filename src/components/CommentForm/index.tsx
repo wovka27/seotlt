@@ -9,24 +9,23 @@ import commentFormStore from '@/stores/commentForm.store'
 
 import '@/components/CommentForm/comment-form.scss'
 import { useParams } from 'react-router'
+import CommentFormActionHOC from '@/components/HOC/CommentFormActionHOC'
 
 const CommentForm: React.FC = observer(() => {
   const { uuid } = useParams<{ uuid: string }>()
+
   const onChange: React.ChangeEventHandler<HTMLInputElement> & React.ChangeEventHandler<HTMLTextAreaElement> = ({
     target: { name, value }
   }) => {
     commentFormStore.setFormData({ ...commentFormStore.formData, [name]: value })
   }
 
-  const submit: React.FormEventHandler<HTMLFormElement> = (event) => {
-    event.preventDefault()
-    commentFormStore.submit(uuid!)
-  }
-
   return (
     <div className="comment-form">
-      <h3 className="comment-form__title">Добавить комментарий</h3>
-      <form onSubmit={submit} className="comment-form-form">
+      <h3 className="comment-form__title">
+        {commentFormStore.actionType === 'create' ? 'Добавить' : 'Редактировать'} комментарий
+      </h3>
+      <form className="comment-form-form">
         <UiInput
           onChange={onChange}
           required
@@ -53,9 +52,24 @@ const CommentForm: React.FC = observer(() => {
           rows={3}
         />
         <div className="comment-form-form__actions">
-          <UiButton size="small" type="submit">
-            Опубликовать
-          </UiButton>
+          {commentFormStore.actionType === 'create' && (
+            <CommentFormActionHOC uuid={uuid!} actionType="create">
+              {(action) => (
+                <UiButton onClick={action} size="small" type="submit">
+                  Опубликовать
+                </UiButton>
+              )}
+            </CommentFormActionHOC>
+          )}
+          {commentFormStore.actionType === 'update' && (
+            <CommentFormActionHOC uuid={uuid!} actionType="update">
+              {(action) => (
+                <UiButton onClick={action} size="small" type="submit">
+                  Сохранить
+                </UiButton>
+              )}
+            </CommentFormActionHOC>
+          )}
           <UiButton size="small" variant="secondary" onClick={commentFormStore.resetFormData}>
             Отмена
           </UiButton>
