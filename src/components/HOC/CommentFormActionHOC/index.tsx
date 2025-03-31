@@ -9,10 +9,10 @@ interface ICommentFormActionHOCProps {
 }
 
 const CommentFormActionHOC: FC<ICommentFormActionHOCProps> = observer(({ actionType, children, uuid }) => {
-  const action = () => {
-    commentFormStore.setActionType(actionType)
+  const action = async () => {
+    await commentFormStore.setActionType(actionType)
     commentFormStore.submit(uuid)
-    commentFormStore.setActionType('create')
+    await commentFormStore.setActionType('create')
   }
 
   return children(action)

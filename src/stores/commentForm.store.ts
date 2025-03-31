@@ -9,7 +9,7 @@ class CommentFormStore {
     makeAutoObservable(this)
   }
 
-  setActionType = (value: typeof this.actionType) => {
+  setActionType = async (value: typeof this.actionType) => {
     this.actionType = value
   }
 

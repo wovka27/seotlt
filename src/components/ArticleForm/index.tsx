@@ -1,4 +1,4 @@
-import React, { useActionState, useState } from 'react'
+import React, { useActionState, useDeferredValue, useState } from 'react'
 
 import UiInput from '@/components/UI/UiInput'
 import UiTextArea from '@/components/UI/UiTextArea'
@@ -22,9 +22,11 @@ const ArticleForm: React.FC<ArticleFormProps> = ({ initialData = getInitialData(
   )
   const [srcImg, setSrcImg] = useState<string>(initialData.imageUrl)
 
+  const src = useDeferredValue(srcImg)
+
   return (
     <form action={action} className="article-form">
-      <ImgPreview srcImg={srcImg} />
+      <ImgPreview srcImg={src} />
       <div className="article-form__fields">
         <UiInput
           defaultValue={data.title}

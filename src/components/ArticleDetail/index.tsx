@@ -24,6 +24,7 @@ const ArticleDetail: React.FC = observer(() => {
   const navigate = useNavigate()
 
   const { resetFormData, setActionType, actionType } = commentFormStore
+
   const articleData = newsStore.readItem(uuid!)
 
   const nodeRef = useRef<HTMLDivElement | null>(null)

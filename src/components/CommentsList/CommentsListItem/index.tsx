@@ -18,11 +18,7 @@ const CommentsListItem: React.FC<ICommentsListItemProps> = observer(({ data }) =
   const { setActionType, setFormData, resetFormData } = commentFormStore
 
   const edit = async () => {
-    await Promise.all([
-      await queueMicrotask(() => setActionType('create')),
-      queueMicrotask(() => setActionType('update')),
-      queueMicrotask(() => setFormData(data))
-    ])
+    await Promise.all([await setActionType('create'), setActionType('update'), setFormData(data)])
   }
 
   const remove = () => {
