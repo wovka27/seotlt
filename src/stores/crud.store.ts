@@ -2,7 +2,13 @@ import { action, observable } from 'mobx'
 import { storage } from '@/services/storage'
 import { generateUUID } from '@/helpers/generateUUID'
 
-export default class CrudStore<T extends { uuid: string }> {
+export interface IBaseItem {
+  uuid: string
+  created_at?: string
+  updated_at?: string
+}
+
+export default class CrudStore<T extends IBaseItem> {
   public items: T[] = []
 
   protected observableAnnotations = {
@@ -22,27 +28,21 @@ export default class CrudStore<T extends { uuid: string }> {
     this.loadFromStorage()
   }
 
-  private saveToStorage() {
-    storage.setItem(this.storageKey, this.items)
-  }
-
-  private loadFromStorage() {
-    this.items = storage.getItem(this.storageKey) ?? []
-  }
-
   public createItem(item: T) {
-    this.items.push({ ...item, uuid: generateUUID() })
+    this.items.push({ ...item, uuid: generateUUID(), created_at: new Date(), updated_at: new Date() })
     this.saveToStorage()
   }
 
-  public readItem(uuid: string) {
-    return this.items.find((i) => i.uuid === uuid)
+  public readItem(uuid: string, key: keyof T = 'uuid') {
+    return this.items.find((i) => i[key] === uuid)
   }
 
   public updateItem(uuid: string, data: Partial<T>) {
     const item = this.readItem(uuid)
 
     if (!item) return
+
+    item.updated_at = new Date().toString()
 
     Object.assign(item, data)
     this.saveToStorage()
@@ -51,5 +51,13 @@ export default class CrudStore<T extends { uuid: string }> {
   public deleteItem(uuid: string) {
     this.items = this.items.filter((i) => i.uuid !== uuid)
     this.saveToStorage()
+  }
+
+  private saveToStorage() {
+    storage.setItem(this.storageKey, this.items)
+  }
+
+  private loadFromStorage() {
+    this.items = storage.getItem(this.storageKey) ?? []
   }
 }

@@ -4,7 +4,7 @@ import UiInput from '@/components/UI/UiInput'
 import UiTextArea from '@/components/UI/UiTextArea'
 import UiButton from '@/components/UI/UiButton'
 
-import { INewsItem } from '@/stores/news.store'
+import type { INewsItem } from '@/stores/news.store'
 
 import '@/components/ArticleForm/article-form.scss'
 import ImgPreview from '@/components/ImgPreview'
@@ -17,7 +17,7 @@ interface ArticleFormProps {
 
 const ArticleForm: React.FC<ArticleFormProps> = ({ initialData = getInitialData(), onSubmit, onCancel }) => {
   const [data, action] = useActionState<INewsItem, FormData>(
-    (state, payload) => onSubmit(state, Object.fromEntries(payload) as Record<keyof INewsItem, string>),
+    (state, payload) => onSubmit(state, Object.fromEntries(payload) as unknown as INewsItem),
     initialData
   )
   const [srcImg, setSrcImg] = useState<string>(initialData.imageUrl)
@@ -52,8 +52,6 @@ const ArticleForm: React.FC<ArticleFormProps> = ({ initialData = getInitialData(
         />
 
         <div className="article-form__row">
-          <UiInput defaultValue={data.date} label="Дата" type="date" name="date" required />
-
           <UiInput
             defaultValue={data.category}
             label="Категория"
@@ -74,12 +72,11 @@ const ArticleForm: React.FC<ArticleFormProps> = ({ initialData = getInitialData(
   )
 }
 
-const getInitialData = () => ({
+const getInitialData = (): INewsItem => ({
   uuid: '',
   title: '',
   excerpt: '',
   imageUrl: '',
-  date: '',
   category: ''
 })
 

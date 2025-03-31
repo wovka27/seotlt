@@ -1,0 +1,67 @@
+.comments-list-item {
+  display: flex;
+  gap: 16px;
+  padding: 20px;
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  margin-bottom: 16px;
+
+  &:hover {
+    transform: translateY(-2px);
+    transition: transform 0.2s ease;
+  }
+
+  &__avatar {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    object-fit: cover;
+    object-position: center;
+  }
+
+  &-content {
+    flex: 1;
+
+    &-header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 8px;
+
+      &__edit {
+        cursor: pointer;
+        &:hover {
+          path {
+            stroke: #4f46e5;
+          }
+        }
+        path {
+          transition: stroke 0.2s ease-in-out;
+        }
+      }
+
+
+      &__name {
+        font-weight: 600;
+        font-size: 16px;
+        color: #111827;
+      }
+
+      &__date {
+        color: #6b7280;
+        font-size: 14px;
+        display: flex;
+        align-items: center;
+        gap: 4px;
+      }
+    }
+
+
+    &__text {
+      color: #4b5563;
+      line-height: 1.5;
+      font-size: 15px;
+    }
+  }
+}

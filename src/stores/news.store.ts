@@ -1,12 +1,10 @@
 import { makeObservable } from 'mobx'
-import CrudStore from '@/stores/crud.store'
+import CrudStore, { IBaseItem } from '@/stores/crud.store'
 
-export interface INewsItem {
-  uuid: string
+export interface INewsItem extends IBaseItem {
   title: string
   excerpt: string
   imageUrl: string
-  date: string
   category: string
 }
 

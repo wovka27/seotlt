@@ -40,7 +40,7 @@ const NewsListItem: React.FC<NewsListItemProps> = (props) => {
           </div>
           <div className="newsItem-content">
             <div className="newsItem-content__meta">
-              <IconInfo iconName="calendar" value={props.date} />
+              <IconInfo iconName="calendar" value={props.updated_at} />
               <IconInfo iconName="tag" value={props.category} />
             </div>
             <div onClick={navigateTo}>

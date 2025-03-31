@@ -29,6 +29,7 @@ const UiImage: React.FC<UiImageProps> = ({ src, alt = '', className = '', fallba
           className={`ui-image__img ${isLoading ? 'ui-image__img--loading' : ''}`}
           onLoad={handleLoad}
           onError={handleError}
+          draggable={false}
           {...props}
         />
       )}
