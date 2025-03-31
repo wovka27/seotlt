@@ -1,4 +1,4 @@
-import { action, computed, makeObservable, observable } from 'mobx'
+import { computed, makeObservable } from 'mobx'
 import CrudStore, { IBaseItem } from '@/stores/crud.store'
 
 export interface ICommentsItem extends IBaseItem {

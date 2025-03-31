@@ -1,35 +1,36 @@
 import React from 'react'
+import { observer } from 'mobx-react-lite'
 
 import UiButton from '@/components/UI/UiButton'
 import UiInput from '@/components/UI/UiInput'
 import UiTextArea from '@/components/UI/UiTextArea'
 
-import { ICommentsItem } from '@/stores/comments.store'
+import commentFormStore from '@/stores/commentForm.store'
 
 import '@/components/CommentForm/comment-form.scss'
+import { useParams } from 'react-router'
 
-interface CommentFormProps {
-  data: ICommentsItem
-  setData: React.Dispatch<React.SetStateAction<ICommentsItem>>
-  onSubmit: React.FormEventHandler<HTMLFormElement>
-  onCancel: () => void
-}
-
-const CommentForm: React.FC<CommentFormProps> = ({ data, onSubmit, onCancel, setData }) => {
+const CommentForm: React.FC = observer(() => {
+  const { uuid } = useParams<{ uuid: string }>()
   const onChange: React.ChangeEventHandler<HTMLInputElement> & React.ChangeEventHandler<HTMLTextAreaElement> = ({
     target: { name, value }
   }) => {
-    setData((prevState) => ({ ...prevState, [name]: value }))
+    commentFormStore.setFormData({ ...commentFormStore.formData, [name]: value })
+  }
+
+  const submit: React.FormEventHandler<HTMLFormElement> = (event) => {
+    event.preventDefault()
+    commentFormStore.submit(uuid!)
   }
 
   return (
     <div className="comment-form">
       <h3 className="comment-form__title">Добавить комментарий</h3>
-      <form onSubmit={onSubmit} className="comment-form-form">
+      <form onSubmit={submit} className="comment-form-form">
         <UiInput
           onChange={onChange}
           required
-          value={data.user_name}
+          value={commentFormStore.formData.user_name}
           name="user_name"
           placeholder="Введите Имя"
           label="Имя"
@@ -37,7 +38,7 @@ const CommentForm: React.FC<CommentFormProps> = ({ data, onSubmit, onCancel, set
         <UiInput
           onChange={onChange}
           required
-          value={data.avatar_url}
+          value={commentFormStore.formData.avatar_url}
           name="avatar_url"
           placeholder="Введите Url"
           label="Url аватарки"
@@ -45,7 +46,7 @@ const CommentForm: React.FC<CommentFormProps> = ({ data, onSubmit, onCancel, set
         <UiTextArea
           onChange={onChange}
           required
-          value={data.comment}
+          value={commentFormStore.formData.comment}
           name="comment"
           placeholder="..."
           label="Комментарий"
@@ -55,13 +56,13 @@ const CommentForm: React.FC<CommentFormProps> = ({ data, onSubmit, onCancel, set
           <UiButton size="small" type="submit">
             Опубликовать
           </UiButton>
-          <UiButton size="small" variant="secondary" onClick={onCancel}>
+          <UiButton size="small" variant="secondary" onClick={commentFormStore.resetFormData}>
             Отмена
           </UiButton>
         </div>
       </form>
     </div>
   )
-}
+})
 
 export default CommentForm

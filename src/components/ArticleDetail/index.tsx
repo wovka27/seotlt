@@ -1,4 +1,4 @@
-import React, { useRef } from 'react'
+import React, { useEffect, useRef } from 'react'
 import { observer } from 'mobx-react-lite'
 import { useNavigate, useParams } from 'react-router'
 import { Navigate } from 'react-router-dom'
@@ -7,53 +7,37 @@ import Icon from '@/components/Icon'
 import IconInfo from '@/components/Icon/IconInfo'
 import UpdateArticleHOC from '@/components/HOC/UpdateArticleHOC'
 import DeleteArticleHOC from '@/components/HOC/DeleteArticleHOC'
+import CommentsList from '@/components/CommentsList'
+import CommentForm from '@/components/CommentForm'
 import UiButton from '@/components/UI/UiButton'
 import UiImage from '@/components/UI/UiImage'
 
-import newsStore, { INewsItem } from '@/stores/news.store'
+import newsStore from '@/stores/news.store'
 
 import '@/components/ArticleDetail/article-detail.scss'
-import CommentsList from '@/components/CommentsList'
-import CommentForm from '@/components/CommentForm'
-import commentsStore, { ICommentsItem } from '@/stores/comments.store'
+
+import commentFormStore from '@/stores/commentForm.store'
 
 const ArticleDetail: React.FC = observer(() => {
   const { uuid } = useParams<{ uuid: string }>()
   const navigate = useNavigate()
-  const [articleData] = React.useState<INewsItem | undefined>(newsStore.readItem(uuid!))
-  const [comment, setComment] = React.useState<ICommentsItem>(getInitialState())
-  const [action, setAction] = React.useState<'create' | 'update'>('create')
+  const articleData = newsStore.readItem(uuid!)
 
   const nodeRef = useRef<HTMLDivElement | null>(null)
 
-  const onBack = () => navigate(-1)
-
-  const apply: React.FormEventHandler<HTMLFormElement> = (event) => {
-    event.preventDefault()
-
-    if (action === 'update') commentsStore.updateItem(comment.uuid, comment)
-    else commentsStore.createItem({ ...comment!, article_uuid: uuid! })
-
-    setAction('create')
-    setComment(getInitialState())
+  const onBack = () => {
+    commentFormStore.resetFormData()
+    commentFormStore.setActionType('create')
+    navigate(-1)
   }
 
-  const onEdit = (comment: ICommentsItem) => {
-    setComment(comment)
-    setAction('update')
-    nodeRef.current?.scrollIntoView({ behavior: 'smooth', block: 'center' })
-  }
-  const onRemove = (val: string) => {
-    commentsStore.deleteItem(val)
-  }
+  useEffect(() => {
+    if (commentFormStore.actionType === 'update') {
+      nodeRef.current?.scrollIntoView({ behavior: 'smooth', block: 'center' })
+    }
+  }, [commentFormStore.actionType])
 
-  const onCancel = () => {
-    setComment(getInitialState())
-  }
-
-  if (!uuid || !isValidUUID(uuid)) return <Navigate to="/404" replace />
-
-  if (!articleData) return null
+  if (!uuid || !isValidUUID(uuid) || !articleData) return <Navigate to="/404" replace />
 
   return (
     <div className="article-detail-wrapper">
@@ -96,9 +80,9 @@ const ArticleDetail: React.FC = observer(() => {
         </div>
       </article>
       <div ref={nodeRef}>
-        <CommentForm data={comment} setData={setComment} onSubmit={apply} onCancel={onCancel} />
+        <CommentForm />
       </div>
-      <CommentsList onRemove={onRemove} onEdit={onEdit} />
+      <CommentsList />
     </div>
   )
 })
@@ -106,13 +90,5 @@ const ArticleDetail: React.FC = observer(() => {
 const isValidUUID = (uuid: string) => {
   return /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(uuid)
 }
-
-const getInitialState = (): ICommentsItem => ({
-  user_name: '',
-  comment: '',
-  article_uuid: '',
-  uuid: '',
-  avatar_url: ''
-})
 
 export default ArticleDetail

@@ -1,23 +1,33 @@
 import React from 'react'
+import { observer } from 'mobx-react-lite'
 
 import UiImage from '@/components/UI/UiImage'
 import Icon from '@/components/Icon'
 import IconInfo from '@/components/Icon/IconInfo'
 
-import { ICommentsItem } from '@/stores/comments.store'
+import commentsStore, { ICommentsItem } from '@/stores/comments.store'
 
 import '@/components/CommentsList/CommentsListItem/comments-list-item.scss'
+import commentFormStore from '@/stores/commentForm.store'
 
 interface ICommentsListItemProps {
   data: ICommentsItem
-  onEdit: (comment: ICommentsItem) => void
-  onRemove: (uuid: string) => void
 }
 
-const CommentsListItem: React.FC<ICommentsListItemProps> = ({ data, onEdit, onRemove }) => {
+const CommentsListItem: React.FC<ICommentsListItemProps> = observer(({ data }) => {
+  const edit = () => {
+    commentFormStore.setActionType('update')
+    commentFormStore.setFormData(data)
+  }
+
+  const remove = () => {
+    commentsStore.deleteItem(data.uuid)
+    commentFormStore.resetFormData()
+  }
+
   return (
     <div className="comments-list-item">
-      <UiImage src={data.avatar_url} alt="avatar" className="comments-list-item__avatar" />
+      <UiImage key={data.avatar_url} src={data.avatar_url} alt="avatar" className="comments-list-item__avatar" />
       <div className="comments-list-item-content">
         <div className="comments-list-item-content-header">
           <span className="comments-list-item-content-header__name">{data.user_name}</span>
@@ -28,13 +38,8 @@ const CommentsListItem: React.FC<ICommentsListItemProps> = ({ data, onEdit, onRe
               value={data.updated_at}
               className="comments-list-item-content-header__date"
             />
-            <Icon
-              name="pencil"
-              size={16}
-              className="comments-list-item-content-header__edit"
-              onClick={() => onEdit(data)}
-            />
-            <p className="comments-list-item-content-header__edit" onClick={() => onRemove(data.uuid)}>
+            <Icon name="pencil" size={16} className="comments-list-item-content-header__edit" onClick={edit} />
+            <p className="comments-list-item-content-header__edit" onClick={remove}>
               Удалить
             </p>
           </div>
@@ -43,6 +48,6 @@ const CommentsListItem: React.FC<ICommentsListItemProps> = ({ data, onEdit, onRe
       </div>
     </div>
   )
-}
+})
 
-export default React.memo(CommentsListItem)
+export default CommentsListItem
