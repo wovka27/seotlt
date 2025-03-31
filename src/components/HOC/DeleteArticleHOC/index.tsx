@@ -2,6 +2,7 @@ import React from 'react'
 
 import newsStore from '@/stores/news.store'
 import { observer } from 'mobx-react-lite'
+import commentsStore from '@/stores/comments.store'
 
 interface IDeleteArticleHOCProps {
   uuid: string
@@ -13,6 +14,7 @@ const DeleteArticleHOC: React.FC<IDeleteArticleHOCProps> = observer(({ uuid, cal
   return children((event) => {
     event.stopPropagation()
     newsStore.deleteItem(uuid)
+    commentsStore.deleteItem(uuid, 'article_uuid')
     callback?.()
   })
 })

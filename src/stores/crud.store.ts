@@ -48,8 +48,8 @@ export default class CrudStore<T extends IBaseItem> {
     this.saveToStorage()
   }
 
-  public deleteItem(uuid: string) {
-    this.items = this.items.filter((i) => i.uuid !== uuid)
+  public deleteItem(uuid: string, key: keyof T = 'uuid') {
+    this.items = this.items.filter((i) => i[key] !== uuid)
     this.saveToStorage()
   }
 
