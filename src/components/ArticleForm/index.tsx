@@ -51,15 +51,13 @@ const ArticleForm: React.FC<ArticleFormProps> = ({ initialData = getInitialData(
           required
         />
 
-        <div className="article-form__row">
-          <UiInput
-            defaultValue={data.category}
-            label="Категория"
-            name="category"
-            placeholder="Например: Technology"
-            required
-          />
-        </div>
+        <UiInput
+          defaultValue={data.category}
+          label="Категория"
+          name="category"
+          placeholder="Например: Technology"
+          required
+        />
 
         <div className="article-form__actions">
           <UiButton type="button" variant="secondary" onClick={onCancel}>
