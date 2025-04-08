@@ -1,4 +1,4 @@
-import React, { useRef } from 'react'
+import React, { useEffect, useRef } from 'react'
 import { observer } from 'mobx-react-lite'
 
 import UiButton from '@/components/UI/UiButton'
@@ -13,24 +13,28 @@ import CommentFormActionHOC from '@/components/HOC/CommentFormActionHOC'
 
 const CommentForm: React.FC = observer(() => {
   const { uuid } = useParams<{ uuid: string }>()
-  const formRef = useRef<HTMLFormElement | null>(null)
+  const formRef = useRef<HTMLDivElement | null>(null)
+
+  const { actionType, setFormData, formData, resetFormData } = commentFormStore
 
   const onChange: React.ChangeEventHandler<HTMLInputElement> & React.ChangeEventHandler<HTMLTextAreaElement> = ({
     target: { name, value }
   }) => {
-    commentFormStore.setFormData({ ...commentFormStore.formData, [name]: value })
+    setFormData({ ...formData, [name]: value })
   }
 
+  useEffect(() => {
+    if (actionType === 'update') formRef.current?.scrollIntoView({ behavior: 'smooth', block: 'center' })
+  }, [actionType])
+
   return (
-    <div className="comment-form">
-      <h3 className="comment-form__title">
-        {commentFormStore.actionType === 'create' ? 'Добавить' : 'Редактировать'} комментарий
-      </h3>
-      <form ref={formRef} className="comment-form-form">
+    <div ref={formRef} className="comment-form">
+      <h3 className="comment-form__title">{actionType === 'create' ? 'Добавить' : 'Редактировать'} комментарий</h3>
+      <form className="comment-form-form">
         <UiInput
           onChange={onChange}
           required
-          value={commentFormStore.formData.user_name}
+          value={formData.user_name}
           name="user_name"
           placeholder="Введите Имя"
           label="Имя"
@@ -38,7 +42,7 @@ const CommentForm: React.FC = observer(() => {
         <UiInput
           onChange={onChange}
           required
-          value={commentFormStore.formData.avatar_url}
+          value={formData.avatar_url}
           name="avatar_url"
           placeholder="Введите Url"
           label="Url аватарки"
@@ -46,32 +50,21 @@ const CommentForm: React.FC = observer(() => {
         <UiTextArea
           onChange={onChange}
           required
-          value={commentFormStore.formData.comment}
+          value={formData.comment}
           name="comment"
           placeholder="..."
           label="Комментарий"
           rows={3}
         />
         <div className="comment-form-form__actions">
-          {commentFormStore.actionType === 'create' && (
-            <CommentFormActionHOC uuid={uuid!} actionType="create">
-              {(action) => (
-                <UiButton onClick={action} size="small" type="submit">
-                  Опубликовать
-                </UiButton>
-              )}
-            </CommentFormActionHOC>
-          )}
-          {commentFormStore.actionType === 'update' && (
-            <CommentFormActionHOC uuid={uuid!} actionType="update">
-              {(action) => (
-                <UiButton onClick={action} size="small" type="submit">
-                  Сохранить
-                </UiButton>
-              )}
-            </CommentFormActionHOC>
-          )}
-          <UiButton size="small" variant="secondary" onClick={commentFormStore.resetFormData}>
+          <CommentFormActionHOC uuid={uuid!} actionType={actionType}>
+            {(action) => (
+              <UiButton onClick={action} size="small" type="submit">
+                {textActionTypeBtnMap[actionType]}
+              </UiButton>
+            )}
+          </CommentFormActionHOC>
+          <UiButton size="small" variant="secondary" onClick={resetFormData}>
             Отмена
           </UiButton>
         </div>
@@ -79,5 +72,7 @@ const CommentForm: React.FC = observer(() => {
     </div>
   )
 })
+
+const textActionTypeBtnMap = { create: 'Опубликовать', update: 'Сохранить' }
 
 export default CommentForm

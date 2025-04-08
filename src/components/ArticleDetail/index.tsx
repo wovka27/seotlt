@@ -23,21 +23,15 @@ const ArticleDetail: React.FC = observer(() => {
   const { uuid } = useParams<{ uuid: string }>()
   const navigate = useNavigate()
 
-  const { resetFormData, setActionType, actionType } = commentFormStore
+  const { resetFormData, setActionType } = commentFormStore
 
   const articleData = newsStore.readItem(uuid!)
-
-  const nodeRef = useRef<HTMLDivElement | null>(null)
 
   const onBack = () => {
     resetFormData()
     setActionType('create')
     navigate(-1)
   }
-
-  useEffect(() => {
-    if (actionType === 'update') nodeRef.current?.scrollIntoView({ behavior: 'smooth', block: 'center' })
-  }, [actionType])
 
   if (!uuid || !isValidUUID(uuid) || !articleData) return <Navigate to="/404" replace />
 
@@ -81,9 +75,7 @@ const ArticleDetail: React.FC = observer(() => {
           <p className="article-detail__excerpt">{articleData.excerpt}</p>
         </div>
       </article>
-      <div ref={nodeRef}>
-        <CommentForm />
-      </div>
+      <CommentForm />
       <CommentsList />
     </div>
   )
