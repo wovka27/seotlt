@@ -10,7 +10,9 @@ import newsStore from '@/stores/news.store'
 import '@/components/NewsList/news-list.scss'
 
 const NewsList: React.FC = observer(() => {
-  return newsStore.items.length ? (
+  if (!newsStore.items.length) return <NewsEmptyList />
+
+  return (
     <div className="newsList">
       {newsStore.items.map((item) => (
         <NewsListItem key={item.uuid} {...item} />
@@ -27,8 +29,6 @@ const NewsList: React.FC = observer(() => {
         )}
       </CreateArticleHOC>
     </div>
-  ) : (
-    <NewsEmptyList />
   )
 })
 

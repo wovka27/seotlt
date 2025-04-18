@@ -5,11 +5,11 @@ import newsStore, { INewsItem } from '@/stores/news.store'
 import modalStore from '@/stores/modal.store'
 import ArticleForm from '@/components/ArticleForm'
 
-interface ICreateArticleProps {
+interface ICreateArticleHOCProps {
   children: (open: () => void) => React.ReactNode
 }
 
-const CreateArticle: FC<ICreateArticleProps> = observer(({ children }) => {
+const CreateArticleHOC: FC<ICreateArticleHOCProps> = observer(({ children }) => {
   const apply = (state: INewsItem, payload: INewsItem) => {
     newsStore.createItem(payload)
     modalStore.close()
@@ -24,4 +24,4 @@ const CreateArticle: FC<ICreateArticleProps> = observer(({ children }) => {
   return children(open)
 })
 
-export default CreateArticle
+export default CreateArticleHOC

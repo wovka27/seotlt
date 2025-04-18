@@ -6,6 +6,7 @@ import Icon from '@/components/Icon'
 import modalStore from '@/stores/modal.store'
 
 import '@/components/UI/UiModal/ui-modal.scss'
+import { createPortal } from 'react-dom'
 
 const UiModal: React.FC = observer(() => {
   const stop: React.MouseEventHandler<HTMLDivElement> & React.TouchEventHandler<HTMLDivElement> = (e) =>
@@ -24,7 +25,7 @@ const UiModal: React.FC = observer(() => {
 
   if (!modalStore.component) return null
 
-  return (
+  return createPortal(
     <div className="ui-modal-overlay" onMouseDown={modalStore.close} onTouchStart={modalStore.close}>
       <div className="ui-modal" onMouseDown={stop} onTouchStart={stop}>
         <div className="ui-modal__header">
@@ -35,7 +36,8 @@ const UiModal: React.FC = observer(() => {
         </div>
         <div className="ui-modal-content">{modalStore.component}</div>
       </div>
-    </div>
+    </div>,
+    document.body
   )
 })
 
